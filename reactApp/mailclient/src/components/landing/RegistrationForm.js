@@ -49,22 +49,37 @@ export class RegistrationForm extends Component {
 
     handleSubmit = event =>{
         
-        alert(this.state.username + ' ' + this.state.password + ' ' + this.state.firstname + ' ' + this.state.lastname)
-
-        if(this.state.firstname === ''){
-
-        }else if(this.state.lastname === ''){
-
-        }else if(this.state.username === ''){
-            
+        if(this.state.username === ''){
+          document.getElementById("errorMessage").innerHTML = 'Username field is empty!';
         }else if(this.state.password === ''){
-            
+          document.getElementById("errorMessage").innerHTML = 'Password field is empty!';
+        }else if(this.state.firstname === ''){
+          document.getElementById("errorMessage").innerHTML = 'First name field is empty!';
+        }else if(this.state.lastname === ''){
+          document.getElementById("errorMessage").innerHTML = 'Last name field is empty!';
         }else{
 
-            //TODO: post request
+          axios.post('http://localhost:8080/user/registration', {
+            firstname : this.state.firstname,
+            lastname: this.state.lastname,
+            username: this.state.username,
+            password: this.state.password
+          })
+          .then((response) =>{
+            if(response.data.value != null){
+              document.getElementById("errorMessage").innerHTML = response.data.value;
+            }else{
+              this.props.history.push('/regsuccessful');
+            }
+          })
+          .catch(function (error) {
+            alert('Error has occured');
+          });
 
 
         }
+
+        
 
     }
     
@@ -74,6 +89,27 @@ export class RegistrationForm extends Component {
                 <div className="Registration" style = {this.registrationForm}>
               
               <h3 style = {this.loginTextStyle}>Registration</h3>
+
+              
+              <TextField
+                    id = 'username'
+                    label = 'Username'
+                    style = {this.textField}
+                    variant='outlined'
+                    onChange = {this.handleChangeUsername}
+                    value = {this.state.username}>
+                  </TextField>
+                    
+                
+
+                  <TextField
+                    type = 'password'
+                    label = 'Password'
+                    style = {this.textField}
+                    variant='outlined'
+                    onChange= {this.handleChangePassword}
+                    value = {this.state.password}>
+                  </TextField>
               
               <TextField
                     id = 'firstname'
@@ -93,25 +129,7 @@ export class RegistrationForm extends Component {
                     onChange={this.handleChangeLastName}>
                   </TextField>
 
-                  <TextField
-                    id = 'username'
-                    label = 'Username'
-                    style = {this.textField}
-                    variant='outlined'
-                    onChange = {this.handleChangeUsername}
-                    value = {this.state.username}>
-                  </TextField>
-                    
-                
-
-                  <TextField
-                    type = 'password'
-                    label = 'Password'
-                    style = {this.textField}
-                    variant='outlined'
-                    onChange= {this.handleChangePassword}
-                    value = {this.state.password}>
-                  </TextField>
+                  <p id = 'errorMessage'></p>
                     
           
                   <Button
@@ -168,7 +186,7 @@ export class RegistrationForm extends Component {
       background: '#0091EA',
       padding: '15px',
       width: '73%',
-      margin: '30px',
+      margin: '10px',
       fontSize: '27px'
     }
 

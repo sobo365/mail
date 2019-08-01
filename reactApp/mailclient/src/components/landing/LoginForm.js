@@ -4,7 +4,7 @@ import {FormControl, InputLabel, Input, FormHelperText} from '@material-ui/core'
 import axios from "axios"
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
-import { NavLink, Link, Redirect} from 'react-router-dom'
+import { NavLink, Link, Redirect, HashRouter} from 'react-router-dom'
 
 
 export class LoginForm extends Component {
@@ -34,25 +34,33 @@ export class LoginForm extends Component {
       });
     }
 
+
     handleSubmit = event =>{
 
+
         if(this.state.username === ''){
-          alert('Please enter a username!');
+          document.getElementById("errorMessage").innerHTML = 'Username field is empty!';
         }else if(this.state.password === ''){
-          alert('Please enter a password!');
+          document.getElementById("errorMessage").innerHTML = 'Password field is empty!';
         }else{
-          axios.post('http://localhost:8080/auth/login', {
+          axios.post('http://localhost:8080/user/authentication', {
             username: this.state.username,
             password: this.state.password
           })
-          .then(function (response) {
+          .then((response) => {
             console.log(response.data.access_token);
             localStorage.setItem('token', response.data.access_token);
-            alert('OK');
+            try{
+              this.props.history.push('/main');
+            }catch(e){
+              alert(e);
+            }
           })
           .catch(function (error) {
-            alert('Wrong username or password');
+            document.getElementById("errorMessage").innerHTML = 'Check your username or password!';
           });
+
+  
         }
 
       
@@ -67,6 +75,7 @@ export class LoginForm extends Component {
     
     render() {
         return (
+          <HashRouter>
             <div className="Login" style = {this.loginForm}>
               
               <h3 style = {this.loginTextStyle}>Log In</h3>
@@ -91,6 +100,7 @@ export class LoginForm extends Component {
                     onChange={this.handleChangePassword}>
                   </TextField>
                     
+                  <p id = 'errorMessage'></p>
           
                   <Button
                     style = {this.loginBtnStyle}
@@ -107,9 +117,9 @@ export class LoginForm extends Component {
                   Registration
                 </Button>
 
-                  {/* <Button style = {this.btn}> <NavLink   to ="/registration">Registration</NavLink></Button> */}
-              
+                              
       </div>
+      </HashRouter>
         );
     }
 
@@ -147,7 +157,7 @@ export class LoginForm extends Component {
       background: '#0091EA',
       padding: '15px',
       width: '73%',
-      margin: '30px',
+      margin: '10px',
       fontSize: '27px'
     }
 }
