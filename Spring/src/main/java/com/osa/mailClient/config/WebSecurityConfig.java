@@ -1,6 +1,7 @@
 package com.osa.mailClient.config;
 
 
+import com.osa.mailClient.SimpleCORSFilter;
 import com.osa.mailClient.security.TokenHelper;
 import com.osa.mailClient.security.auth.RestAuthenticationEntryPoint;
 import com.osa.mailClient.security.auth.TokenAuthenticationFilter;
@@ -20,6 +21,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -59,11 +61,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     TokenHelper tokenHelper;
 
 
+
     //Definisemo prava pristupa odredjenim URL-ovima
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/**").permitAll();
+      //  http.authorizeRequests().antMatchers("/**").permitAll();
 
         http
                 //komunikacija izmedju klijenta i servera je stateless
@@ -78,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //presretni svaki zahtev filterom
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
 
-
+        http.cors();
         http.csrf().disable();
     }
 

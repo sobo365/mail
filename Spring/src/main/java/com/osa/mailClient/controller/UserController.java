@@ -58,6 +58,8 @@ public class UserController {
         long expiresIn = tokenHelper.getExiprationDate(token);
 
         UserTokenState token_response = new UserTokenState(token, expiresIn);
+        token_response.setUser_id(user.getId());
+        token_response.setUsername(user.getUsername());
 
         return ResponseEntity.ok(token_response);
     }

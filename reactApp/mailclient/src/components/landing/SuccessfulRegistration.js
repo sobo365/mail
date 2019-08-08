@@ -25,7 +25,7 @@ export class SuccessfulRegistration extends Component {
         fontSize: '200px',
         fontWeight: '900',
         marginTop: '10%',
-        color: '#0091EA'
+        color: '#2CA8FF'
     }
 }
 

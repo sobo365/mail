@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-//import { FormGroup, FormControl } from "react-bootstrap"
-import {FormControl, InputLabel, Input, FormHelperText} from '@material-ui/core'
 import axios from "axios"
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
-import { NavLink, Link, Redirect} from 'react-router-dom'
 
 export class RegistrationForm extends Component {
 
@@ -44,7 +41,13 @@ export class RegistrationForm extends Component {
     }
     
     handleRedirect = () => {
-        this.props.history.push('/login')
+      this.props.history.push('/login')
+    }
+
+    handleEnterKeyPress = event => {
+      if(event.key === 'Enter'){
+        this.handleSubmit(event);
+      }
     }
 
     handleSubmit = event =>{
@@ -97,6 +100,7 @@ export class RegistrationForm extends Component {
                     style = {this.textField}
                     variant='outlined'
                     onChange = {this.handleChangeUsername}
+                    onKeyPress = {this.handleEnterKeyPress}
                     value = {this.state.username}>
                   </TextField>
                     
@@ -108,6 +112,7 @@ export class RegistrationForm extends Component {
                     style = {this.textField}
                     variant='outlined'
                     onChange= {this.handleChangePassword}
+                    onKeyPress = {this.handleEnterKeyPress}
                     value = {this.state.password}>
                   </TextField>
               
@@ -117,6 +122,7 @@ export class RegistrationForm extends Component {
                     style = {this.textField}
                     variant='outlined'
                     value = {this.state.firstname}
+                    onKeyPress = {this.handleEnterKeyPress}
                     onChange={this.handleChangeFirstName}>
                   </TextField>
 
@@ -126,6 +132,7 @@ export class RegistrationForm extends Component {
                     style = {this.textField}
                     variant='outlined'
                     value = {this.state.lastname}
+                    onKeyPress = {this.handleEnterKeyPress}
                     onChange={this.handleChangeLastName}>
                   </TextField>
 
@@ -147,12 +154,25 @@ export class RegistrationForm extends Component {
                   Log In
                 </Button>
 
+                <div style = {this.image}>
+                    <img 
+                    src="https://images.vexels.com/media/users/3/145819/isolated/preview/486c34cf5b3b4badd52bc427dbeb44a1-rocket-cartoon-by-vexels.png" alt="Smiley face" height="200" width="200" />
+                </div>
+
               
       </div>
             </div>
         );
 
     }
+
+    image = {
+      userSelect: 'none',
+      position: 'absolute',
+      marginLeft: '40%',
+      top : '100px',
+      transform : 'rotate(45deg)'
+  }
 
     loginBtn = {
         display: 'block',
@@ -183,7 +203,7 @@ export class RegistrationForm extends Component {
       color: '#fff',
       border : 'none',
       borderRadius: '10px',
-      background: '#0091EA',
+      background: '#2CA8FF',
       padding: '15px',
       width: '73%',
       margin: '10px',

@@ -27,7 +27,7 @@ export class Header extends Component {
     }
 
     logoSecond = {
-        color: '#0091EA',
+        color: '#2CA8FF',
         fontWeight: '400'
     }
 }

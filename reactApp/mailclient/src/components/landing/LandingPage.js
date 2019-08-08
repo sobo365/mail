@@ -3,8 +3,7 @@ import {LoginForm} from './LoginForm'
 import {RegistrationForm} from './RegistrationForm'
 import SuccessfulRegistration from './SuccessfulRegistration'
 import Header from './Header'
-import Button from '@material-ui/core/Button';
-import {Route, NavLink, HashRouter, Redirect } from 'react-router-dom'
+import {Route, NavLink, HashRouter, Redirect, BrowserRouter } from 'react-router-dom'
 
 export class LandingPage extends Component {
 
@@ -12,7 +11,7 @@ export class LandingPage extends Component {
         if(localStorage.getItem('token') == null){
             this.props.history.push('/login');
         }else{
-            this.props.history.push('/main');
+            window.location.replace('/#/home')
         }
      }
 
@@ -27,10 +26,7 @@ export class LandingPage extends Component {
                 <Route path="/login" component={LoginForm}/>
                 <Route path='/regsuccessful' component={SuccessfulRegistration}/>
                 
-                <div style = {this.image}>
-                    <img 
-                    src="https://images.vexels.com/media/users/3/145819/isolated/preview/486c34cf5b3b4badd52bc427dbeb44a1-rocket-cartoon-by-vexels.png" alt="Smiley face" height="200" width="200" />
-                </div>
+                
                 
             </div>
             </HashRouter>
@@ -43,13 +39,7 @@ export class LandingPage extends Component {
     
 
 
-    image = {
-        userSelect: 'none',
-        position: 'absolute',
-        marginLeft: '70%',
-        top : '100px',
-        transform : 'rotate(45deg)'
-    }
+    
 
     LandingPageStyle = {
         textAlign: 'center',
