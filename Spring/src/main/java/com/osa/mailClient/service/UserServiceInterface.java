@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserServiceInterface extends UserDetailsService {
 
+    User findById(long id);
+
     User findByUsername(String username);
 
     User save(User user);

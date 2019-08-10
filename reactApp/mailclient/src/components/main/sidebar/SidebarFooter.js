@@ -8,9 +8,7 @@ export class SidebarFooter extends Component {
     }
 
     logout = (event) =>{
-        localStorage.removeItem('token');
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('username');
+        localStorage.clear();
         window.location.replace('/login');
 
         event.preventDefault();

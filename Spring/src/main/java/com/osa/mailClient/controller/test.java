@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class test {
 
 
-    @GetMapping("/hello")
+    @PostMapping("/hello")
     public ResponseEntity<?> registerUser() {
         return ResponseEntity.ok(new ResponseMessageDTO("ok"));
 

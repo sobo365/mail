@@ -16,6 +16,11 @@ public class UserService implements UserServiceInterface {
     private UserRepository userRepository;
 
     @Override
+    public User findById(long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Sidebar from '../sidebar/Sidebar'
 import Compose from '../../dialogs/Compose'
-import AccountCard from '../../cards/AccountCard'
 
 export class Home extends Component {
     constructor(props){
@@ -17,6 +16,10 @@ export class Home extends Component {
             this.props.history.push('/login');
         }
         this.state.username = localStorage.getItem('username');
+     }
+
+     componentWillMount(){
+         
      }
      
 
@@ -46,3 +49,7 @@ export class Home extends Component {
 
 
 export default Home
+
+
+var token = localStorage.getItem('token');
+

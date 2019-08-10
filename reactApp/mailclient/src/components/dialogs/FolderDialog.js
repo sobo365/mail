@@ -9,13 +9,17 @@ import Fab from '@material-ui/core/Fab';
 import Slide from '@material-ui/core/Slide';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
+import axios from 'axios'
 
 export class FolderDialog extends Component{
 
     state = {
         open: false,
-        folderName: ''
+        folderName: '',
+        errorText: '',
+        errorValue : false
     }
+
 
     Transition = React.forwardRef(function Transition(props, ref) {
       return <Slide direction="up" ref={ref} {...props} />;
@@ -23,20 +27,46 @@ export class FolderDialog extends Component{
 
 
     handleChangeFolderName = event =>{
-        this.setState({
+        if(event.target.value.trim() === ''){
+          this.setState({
+            errorValue: true,
+            errorText: 'Empty field!',
+            folderName: ''
+          });
+        }else{
+          this.setState({
+            errorValue: false,
+            errorText: '',
             folderName: event.target.value
-        });
+          });
+        }
+        
     }
 
-    handleToggle = () => {
+    handleOpen = () => {
            this.setState({
-               open: !this.state.open
-           }) 
+               open: true,
+               errorValue: false,
+               errorText: '',
+               folderName: ''
+           }) ;
+    }
+
+    handleClose = () => {
+          this.setState({
+            open: false
+          })
     }
 
     handleSubmit = () =>{
-        if(this.state.folderName.trim() != ''){
-            alert(this.state.folderName)
+        if(this.state.folderName.trim() === ''){
+            this.setState({
+              errorText: 'Empty field!',
+              errorValue: true,
+              folderName: ''
+            });
+        }else{
+
         }
         
     }
@@ -54,7 +84,7 @@ export class FolderDialog extends Component{
             style = {this.ttip}
             title="Add Folder">
                 <Fab  
-                onClick={this.handleToggle}
+                onClick={this.handleOpen}
                 style={this.fab}
                 color="secondary" 
                 aria-label="add" 
@@ -82,8 +112,8 @@ export class FolderDialog extends Component{
                 style={this.form}
                 margin="normal"
                 variant="outlined"
-                error={this.state.folderName.trim() === ""}
-                helperText={this.state.folderName.trim() === "" ? 'Empty field!' : ' '}
+                error = {this.state.errorValue}
+                helperText={this.state.errorText}
               />
 
             </DialogContent>
@@ -92,7 +122,7 @@ export class FolderDialog extends Component{
             <Button 
                 variant="contained"
                 color="secondary" 
-                onClick={this.handleToggle}
+                onClick={this.handleClose}
                 size="large"
                 style = {this.btn} >
                 Cancel

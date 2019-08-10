@@ -36,8 +36,8 @@ public class User implements Serializable, UserDetails {
     @OneToMany(mappedBy = "userContact")
     private List<Contact> userContacts;
 
-    @OneToMany(mappedBy = "userAccount")
-    private List<Account> userAccounts;
+    @OneToMany(mappedBy = "user")
+    private List<Account> user;
 
     @OneToMany(mappedBy = "userTag")
     private List<Tag> userTags;
@@ -95,12 +95,12 @@ public class User implements Serializable, UserDetails {
         this.userContacts = userContacts;
     }
 
-    public List<Account> getUserAccounts() {
-        return userAccounts;
+    public List<Account> getUser() {
+        return user;
     }
 
-    public void setUserAccounts(List<Account> userAccounts) {
-        this.userAccounts = userAccounts;
+    public void setUser(List<Account> user) {
+        this.user = user;
     }
 
     public List<Tag> getUserTags() {
