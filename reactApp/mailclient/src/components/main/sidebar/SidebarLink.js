@@ -20,7 +20,7 @@ export class SidebarLink extends Component {
         return (
             <div className = {this.props.active ? 'sidebarLinkActive' : 'sidebarLink'}>
                 <i class={this.props.icoName} style = {this.folderIco}></i>
-                <p style = {this.folderIco} className = 'sidebarLinkText' >{this.props.value}</p>
+                <p style = {this.folderIco} className = 'sidebarLinkText' ></p>
             </div>
         )
 

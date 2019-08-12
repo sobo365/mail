@@ -4,6 +4,8 @@ import AccountCard from '../../cards/AccountCard';
 import AddAcount from '../../dialogs/AccountDialog';
 import axios from 'axios';
 
+
+
 export class Accounts extends Component {
     constructor(props){
         super(props);
@@ -12,10 +14,14 @@ export class Accounts extends Component {
             username: '',
             components: 3,
             accountComponents: [],
-            accounts: []
+            accounts: [],
+            colors : ['#ff453a', '#64d2ff', '#ffd600', '#f25abf', '#ff375f', '#ff9f10', '#e65c71', '#30d158', '#98989d', '#0a84ff']
         }
     }
 
+    getRandomInt = (max) => {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
     
 
     componentDidMount() {
@@ -47,7 +53,7 @@ export class Accounts extends Component {
             for (let i = 0; i < response.data.length; i++) {
                 this.state.accountComponents.push(<AccountCard displayname={response.data[i].displayname} 
                                                                 id={response.data[i].id}
-                                                                update={this.update}
+                                                                color = {this.state.colors[this.getRandomInt(this.state.colors.length)]}
                                                                 smtpAddress={response.data[i].smtpAddress}
                                                                 smtpPort={response.data[i].smtpPort}
                                                                 username={response.data[i].username}></AccountCard>)
@@ -82,6 +88,7 @@ export class Accounts extends Component {
             <div>
                 <Sidebar accounts></Sidebar> 
                 <AddAcount update={this.update}></AddAcount>
+                <p style={this.title}>Accounts</p>
           
                 
                 <div style = {this.content}>
@@ -95,11 +102,21 @@ export class Accounts extends Component {
         )
     }
 
+    title = {
+        fontSize: '35px',
+        fontWeight: '500',
+        color: '#3b3462',
+        float: 'left',
+        marginLeft: '13%',
+        position: 'fixed'
+    }
+
     content = {
         align: 'auto',
         marginRight: '20px',
-        width: '80%',
+        width: '85%',
         float: 'right',
+        marginTop: '100px',
         marginBottom: '120px'
     }
 

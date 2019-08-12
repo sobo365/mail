@@ -9,6 +9,7 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     User findByUsername(String username );
     List<Account> findAllByUser(User user);
+    Account findById(long id);
 
 
 }

@@ -1,34 +1,29 @@
 .sidebarLink{
-    background: #2CA8FF;
-    width: 90%;
+    width: 100%;
     height: 50px;
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 20px;
+    margin-right: 0px;
+    margin-left: 5px;
     border-radius: 40px;
     text-align: left;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
     cursor : context-menu;
-    color: #fff;
+    color: #b8b4cc;
     
 }
 
 .sidebarLinkActive{
     font-weight: 600;
-    color: #2CA8FF;
-    background: rgb(248, 248, 248);
+    color: #6f32ff;
     width: 90%;
     height: 50px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0px;
     margin-top: 20px;
-    border-radius: 40px;
     text-align: left;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
     cursor : context-menu;
-    -webkit-box-shadow: 0px 7px 13px -2px rgba(0,0,0,0.35);
-       -moz-box-shadow: 0px 7px 13px -2px rgba(0,0,0,0.35);
-            box-shadow: 0px 7px 13px -2px rgba(0,0,0,0.35);
+    border-right: 3px solid #6f32ff;
     
 }
 

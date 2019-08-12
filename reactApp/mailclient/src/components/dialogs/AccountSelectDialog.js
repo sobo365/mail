@@ -59,9 +59,11 @@ export class AccountSelectDialog extends Component {
             this.state.components.push(
             <ListItem button 
                       onClick={() => {
-                          this.state.email=this.state.accounts[i].displayname
-                          localStorage.setItem('email', this.state.accounts[i].displayname)
-                          this.handleToggle()
+                          this.state.email=this.state.accounts[i].displayname;
+                          localStorage.setItem('email', this.state.accounts[i].displayname);
+                          localStorage.setItem('account_id', this.state.accounts[i].id);
+                          this.handleToggle();
+                          window.location.reload();
                       }}
                       key={i}>
                 <ListItemAvatar>
@@ -76,40 +78,31 @@ export class AccountSelectDialog extends Component {
         return this.state.components;
     }
 
+   
+
     render() {
         const{open} = this.state
         return (
             <Fragment>
-                <Chip
-                    avatar={<Avatar style={this.avatarStyle}>{localStorage.getItem('email') ? localStorage.getItem('email')[0].toUpperCase() : '' }</Avatar>}
+
+                <div 
+                onClick={this.handleToggle}
+                style={this.accountStyle}>
+                    <p style={this.accountLetter}>
+                        {localStorage.getItem('email') ? localStorage.getItem('email')[0] : '.'}
+                    </p>
+                </div>
+
+                {/* <Chip
+                    
                     style={this.chipStyle}
-                    label={localStorage.getItem('email')}
+                    label={localStorage.getItem('email') ? localStorage.getItem('email'): 'Select Account'}
                     onClick={this.handleToggle}
                     
-                />
+                /> */}
                 <Dialog onClose={this.handleToggle} aria-labelledby="simple-dialog-title" open={open}>
                     <DialogTitle id="simple-dialog-title">Select Account</DialogTitle>
                     <List>
-                        
-                        {/* <ListItem button >
-                            <ListItemAvatar>
-                            <Avatar className={classes.avatar}>
-                                <PersonIcon />
-                            </Avatar>
-                            </ListItemAvatar>
-                            
-                        </ListItem>
-                        
-
-                        <ListItem button >
-                        <ListItemAvatar>
-                            <Avatar>
-                            <AddIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary="add account" />
-                        </ListItem> */}
-
                         {this.renderList()}
                     </List>
                     </Dialog>              
@@ -118,12 +111,22 @@ export class AccountSelectDialog extends Component {
         )
     }
 
-    avatarStyle = {
-       
-        color:'#2CA8FF',
-        background: '#fff', 
-    
-        
+    accountLetter = {
+        paddingTop: '8px',
+        marginLeft: '22px',
+        fontWeight: '900',
+        fontSize: '30px',
+        color: '#ff9066'
+    }    
+
+    accountStyle = {
+        margin: '17px',
+        height: '60px',
+        width: '60px',
+        background: '#fff',
+        borderRadius: '18px',   
+        boxShadow: '0px 3px 7px 0px rgba(0,0,0,0.2)'
+
     }
 
     chipStyle={

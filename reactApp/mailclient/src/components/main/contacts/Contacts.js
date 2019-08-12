@@ -24,12 +24,20 @@ export class Contacts extends Component {
             <div>
                 <Sidebar contacts></Sidebar> 
                 <AddContact></AddContact>
-                 <h3>Contacts</h3>                
+                <p style={this.title}>Contacts</p>                
 
                 
                 
             </div>
         )
+    }
+
+    title = {
+        fontSize: '35px',
+        fontWeight: '500',
+        color: '#3b3462',
+        float: 'left',
+        marginLeft: '13%'
     }
 }
 

@@ -30,7 +30,7 @@ export class SidebarHeader extends Component {
     sidebarHeader = {
         textAlign: 'left',
         marginTop: '10px',
-        marginBottom: '40px'
+        marginBottom: '70px'
     }
 
     paragraph = {

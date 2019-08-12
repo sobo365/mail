@@ -17,6 +17,11 @@ public class AccountService implements AccountServiceInterface{
     private AccountRepository accountRepository;
 
     @Override
+    public Account findById(long id) {
+        return accountRepository.findById(id);
+    }
+
+    @Override
     public Account save(Account account) {
         return accountRepository.save(account);
     }

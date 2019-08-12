@@ -39,10 +39,10 @@ export class Sidebar extends Component {
 
                 <ul style = {this.listItem}>
                     <li ><NavLink to = '/home'><SidebarLink active={this.props.home} icoName="fas fa-home" value = "Home"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/emails'><SidebarLink active={this.props.emails} icoName="far fa-envelope" value = "Emails"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/accounts'><SidebarLink active={this.props.accounts} icoName="far fa-user" value = "Accounts"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/contacts'><SidebarLink active={this.props.contacts} icoName="far fa-address-book" value = "Contacts"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/folders'><SidebarLink active={this.props.folders} icoName="far fa-folder" value = "Folders"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/emails'><SidebarLink active={this.props.emails} icoName="fas fa-envelope" value = "Emails"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/accounts'><SidebarLink active={this.props.accounts} icoName="fas fa-user" value = "Accounts"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/contacts'><SidebarLink active={this.props.contacts} icoName="fas fa-address-book" value = "Contacts"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/folders'><SidebarLink active={this.props.folders} icoName="fas fa-folder" value = "Folders"></SidebarLink></NavLink></li>
                 </ul>
                 
                 <SidebarFooter></SidebarFooter>
@@ -53,15 +53,15 @@ export class Sidebar extends Component {
     
 
     sidebar = {
-        fontSize: '21px',
+        fontSize: '25px',
         color: '#fff',
         position: 'fixed',
         top: '0',
         left: '0',
-        background: '#2CA8FF',
+        background: '#fff',
         height: '100%',
-        width: '15%',
-        boxShadow: '0 2px 22px 0 rgba(0,0,0,.2),0 2px 30px 0 rgba(0,0,0,.35)'
+        width: '7%'
+   
     }
 
     listItem = {

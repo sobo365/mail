@@ -11,4 +11,5 @@ public interface AccountServiceInterface {
     Account save(Account account);
     List<Account> findAllByUser(User user);
     void remove(long account_id);
+    Account findById(long id);
 }

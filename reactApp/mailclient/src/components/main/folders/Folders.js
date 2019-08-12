@@ -24,12 +24,20 @@ export class Folders extends Component {
             <div>
                 <Sidebar folders></Sidebar> 
                 <AddFolder></AddFolder>
-                 <h3>Folders</h3>                
+                <p style={this.title}>Folders</p>               
 
                 
                 
             </div>
         )
+    }
+
+    title = {
+        fontSize: '35px',
+        fontWeight: '500',
+        color: '#3b3462',
+        float: 'left',
+        marginLeft: '13%'
     }
 }
 
