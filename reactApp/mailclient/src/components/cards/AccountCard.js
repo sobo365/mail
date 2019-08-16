@@ -1,13 +1,8 @@
 import React, { Component} from 'react';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
 import DeleteAccount from '../dialogs/DeleteAccount';
 
 export class AccountCard extends Component {
@@ -24,44 +19,72 @@ export class AccountCard extends Component {
     }
 }
 
+   
+
     render(){
+
+
         return (
             <div style = {this.cardStyle}>
+              <Grid container>
+              <Grid item>
+                  <div style={this.media}>
+                    <i class="far fa-user-circle"></i>
+                  </div>
+                </Grid>
+                <Grid item>
+                <CardContent style={{display: 'flex', flexDirection: 'column', width: '33vw'}}>
+
+                  
+                    <p style = {this.displaynameStyle}>{this.props.displayname}</p>
+                    <div>
+                      <p style = {this.usernamestyle}>{this.props.username}</p>  
+                    </div>
+
+                    <ul style = {this.liststyle}>
+                      <li style = {this.listitem}>
+                        <div>
+                          <p style={this.listItemValue} >{this.props.smtpPort}</p>  
+                          <p >SMTP Port</p>  
+                        </div>
+                      </li>
+                      <li>
+                        <div style = {this.listitem}>
+                          <p style={this.listItemValue}>{this.props.smtpAddress}</p>  
+                          <p >SMTP Address</p>  
+                        </div>
+                      </li>
+                      <li>
+                        <div style = {this.listitem}>
+                          <p style={this.listItemValue}>{this.props.smtpAddress}</p>  
+                          <p >Server Address</p>  
+                        </div>
+                      </li>
+                      <li>
+                        <div style = {this.listitem}>
+                          <p style={this.listItemValue}>{this.props.smtpAddress}</p>  
+                          <p >Server Port</p>  
+                        </div>
+                      </li>
+                    </ul>
+                    </CardContent>
+                </Grid>
+
+             
+                
+                <Grid item style={{width:'15%'}} >
+                  <IconButton>
+                    <CreateIcon fontSize="large" style={{color:'#EEEEEE'}}/>
+                  </IconButton>
+                  <DeleteAccount acccount_id={this.props.id}></DeleteAccount>
+                  
+                </Grid>
+                
+                </Grid>
+                
               
                 
-                {/* <CardContent >
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {this.props.displayname}
-                  </Typography>
-                  
-                  <List style={this.liststyle} component="nav" aria-label="main mailbox folders">
-                        <ListItem >
-                          <p>Username: {this.props.username}</p>
-                        </ListItem>
-
-                        <ListItem >
-                          <p>SMTP Address: {this.props.smtpAddress}</p>
-                        </ListItem>
-
-                        <ListItem >
-                          <p>SMTP Port: {this.props.smtpPort}</p>
-                        </ListItem>
-            
-                </List>
-               
-                </CardContent> */}
-
-                <CardContent>
-                  <h2 style = {this.displaynameStyle}>{this.props.displayname}</h2>
-                  <div>
-                    <p>Username:</p>
-                    <p>{this.props.username}</p>  
-                  </div>
-                  
-                  <p>{this.props.smtpAddress}</p>
-                  <p>{this.props.smtpPort}</p>
-                </CardContent>
-              
+                
               {/* <CardActions>
                 <DeleteAccount acccount_id={this.props.id}></DeleteAccount>
                 
@@ -73,13 +96,54 @@ export class AccountCard extends Component {
           );
     }
 
+    
+    media = {
+      width: '10vw',
+      height: '200px',
+      margin: '30px',
+      marginTop: '40px',
+      color: '#fff',
+      fontSize: '160px'
+    }
+
+  
+
+  
     liststyle = {
-        color: '#fff'
+      listStyleType: 'none',
+      margin: '0',
+      padding: '0',
+      overflow: 'hidden',
+      display: 'flex'
+    }
+
+    listitem = {
+      float: 'left',
+      margin: '10px',
+      
+    }
+
+    listItemValue = {
+      fontWeight: '600',
+      fontSize: '25px'
     }
 
     displaynameStyle = {
-      display: 'inline-block',
-      margin: 'auto'
+      fontWeight: '700',
+      fontSize: '50px',
+      display: 'flex',
+      float: 'left',
+      margin: '10px',
+      marginLeft: '15px'
+    }
+
+    usernamestyle={
+      fontWeight: '500',
+      fontSize: '20px',
+      display: 'flex',
+      float: 'left',
+      margin: '10px',
+      marginLeft: '15px'
     }
 
 
@@ -90,10 +154,11 @@ export class AccountCard extends Component {
         borderRadius: '30px',
         marginLeft: '13%',
         width: '70%',
+        height: '300px',
         maxWidth: '70%',   
         marginTop: '20px',
         marginBottom: '70px',     
-        boxShadow: ' 0px 6px 20px 1px  ' + this.props.color
+         boxShadow: '   0px 4px 30px 2px ' + this.props.color,
     }
 
     

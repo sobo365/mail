@@ -10,6 +10,7 @@ import Slide from '@material-ui/core/Slide';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios'
+import './Dialogs.css'
 
 export class AccountDialog extends Component{
 
@@ -250,7 +251,7 @@ export class AccountDialog extends Component{
                                 ></i>
                         Add Account
             </Fab> */}
-            <Tooltip 
+            {/* <Tooltip 
             style = {this.ttip}
             title="Add Account">
                 <Fab  
@@ -261,7 +262,15 @@ export class AccountDialog extends Component{
                 size = 'large'>
                   <AddIcon />
                 </Fab>
-            </Tooltip>
+            </Tooltip> */}
+
+            <div 
+            className= 'add'
+            onClick={this.handleToggle}
+            style={this.cardStyle}>
+                <i class="fas fa-plus"
+                   style={this.plus}></i>
+            </div>
 
             <Dialog 
                 style = {this.dialogStyle}
@@ -362,6 +371,12 @@ export class AccountDialog extends Component{
         
     }
 
+    plus = {
+      color : '#757575',
+      fontSize: '60px',
+      marginTop: '115px'
+    }
+
     ttip = {
         fontSize: '100px'
     }
@@ -390,6 +405,21 @@ export class AccountDialog extends Component{
        position: 'fixed',
        zIndex: '10'
     }
+
+    cardStyle = {
+      color: '#fff',
+      background: '#F5F5F5',
+      borderRadius: '30px',
+      border: '2px dashed #757575',
+     //  boxShadow: '0px 4px 30px 2px #E0E0E0 ',
+      marginLeft: '13%',
+      width: '70%',
+      height: '300px',
+      maxWidth: '70%',   
+      marginTop: '20px',
+      marginBottom: '70px',
+      transition: '0.5s'
+  }
 } 
     
 export default AccountDialog

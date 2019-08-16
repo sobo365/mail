@@ -6,6 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export class DeleteAccount extends Component {
 
@@ -53,9 +55,10 @@ export class DeleteAccount extends Component {
         const{open} = this.state
         return (
             <Fragment>
-                <Button variant="outlined" color="secondary" onClick={this.handleToggle} style={{width:'50%'}}>
-                    Delete
-                </Button>
+              
+                <IconButton onClick={this.handleToggle}>
+                    <DeleteIcon fontSize="large" style={{color:'#EEEEEE'}}/>
+                  </IconButton>
                 <Dialog
                     open={open}
                     onClose={this.handleToggle}

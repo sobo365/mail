@@ -67,7 +67,7 @@ export class AccountSelectDialog extends Component {
                       }}
                       key={i}>
                 <ListItemAvatar>
-                                <Avatar >
+                                <Avatar style={{background: '#ff9066'}} >
                                 <i class="far fa-user"></i>
                             </Avatar>
                             </ListItemAvatar>
@@ -89,7 +89,7 @@ export class AccountSelectDialog extends Component {
                 onClick={this.handleToggle}
                 style={this.accountStyle}>
                     <p style={this.accountLetter}>
-                        {localStorage.getItem('email') ? localStorage.getItem('email')[0] : '.'}
+                        {localStorage.getItem('email') ? localStorage.getItem('email')[0] : ''}
                     </p>
                 </div>
 

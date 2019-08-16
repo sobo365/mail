@@ -58,16 +58,18 @@ export class Accounts extends Component {
                                                                 smtpPort={response.data[i].smtpPort}
                                                                 username={response.data[i].username}></AccountCard>)
             }
+            this.state.accountComponents.push(<AddAcount update={this.update}></AddAcount>)
             this.forceUpdate()
            
           })
-          .catch(function (error) {
+          .catch( (error) => {
+            this.state.accountComponents.push(<AddAcount update={this.update}></AddAcount>)
             console.log(error);
           })
-          .then(function () {
-            // always executed
+          .then(() => {
+            
           }); 
-
+         
 
           
      }
@@ -87,15 +89,15 @@ export class Accounts extends Component {
         return (
             <div>
                 <Sidebar accounts></Sidebar> 
-                <AddAcount update={this.update}></AddAcount>
+                
                 <p style={this.title}>Accounts</p>
           
                 
                 <div style = {this.content}>
-               
+                
                 {this.renderAccounts()} 
-                   
-                    
+               
+                
                 </div>                    
                 
             </div>
@@ -103,7 +105,7 @@ export class Accounts extends Component {
     }
 
     title = {
-        fontSize: '35px',
+        fontSize: '37px',
         fontWeight: '500',
         color: '#3b3462',
         float: 'left',
