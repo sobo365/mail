@@ -105,7 +105,7 @@ export class Accounts extends Component {
     }
 
     title = {
-        fontSize: '37px',
+        fontSize: '34px',
         fontWeight: '500',
         color: '#3b3462',
         float: 'left',

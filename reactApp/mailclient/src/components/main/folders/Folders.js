@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Sidebar from '../sidebar/Sidebar'
-import AddFolder from '../../dialogs/FolderDialog'
+import FoldersSidebar from './FoldersSidebar'
 
 export class Folders extends Component {
     constructor(props){
@@ -23,8 +23,8 @@ export class Folders extends Component {
         return (
             <div>
                 <Sidebar folders></Sidebar> 
-                <AddFolder></AddFolder>
-                <p style={this.title}>Folders</p>               
+                
+                <FoldersSidebar></FoldersSidebar>             
 
                 
                 
@@ -32,13 +32,6 @@ export class Folders extends Component {
         )
     }
 
-    title = {
-        fontSize: '35px',
-        fontWeight: '500',
-        color: '#3b3462',
-        float: 'left',
-        marginLeft: '13%'
-    }
 }
 
 export default Folders

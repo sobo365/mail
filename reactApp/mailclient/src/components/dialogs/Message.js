@@ -128,6 +128,13 @@ export class Message extends Component {
                     maxWidth={'xl'}
                     fullWidth={true}
                     open={open}
+                    
+                    BackdropProps = {{
+                        style: {
+                            backgroundColor: '#1A237E',
+                            boxShadow: 'none',
+                          },
+                    }}
                     onClose={this.handleToggle}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"

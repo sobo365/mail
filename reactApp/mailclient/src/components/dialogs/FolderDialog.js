@@ -80,7 +80,7 @@ export class FolderDialog extends Component{
         return(
         
         <Fragment>
-            <Tooltip 
+            {/* <Tooltip 
             style = {this.ttip}
             title="Add Folder">
                 <Fab  
@@ -91,7 +91,16 @@ export class FolderDialog extends Component{
                 size = 'large'>
                   <AddIcon />
                 </Fab>
-            </Tooltip>
+            </Tooltip> */}
+
+            <div 
+            onClick = {this.handleOpen}
+            style={this.newFolderItem}>
+              <div style = {this.newFolderItemIcoBackground}>
+                <i style={this.ico} class="fas fa-plus"></i>
+              </div>
+              <p style={this.newFolderItemText}>Add</p>
+            </div>
 
             <Dialog 
                 style = {this.dialogStyle}
@@ -142,6 +151,37 @@ export class FolderDialog extends Component{
         </Fragment>
         )
         
+    }
+
+    ico = {
+      fontSize: '30px',
+      marginTop: '22px'
+    }
+
+    newFolderItemText = {
+      display: 'inline-block',
+      color: '#9E9E9E',
+      float: 'left',
+      marginLeft: '40px',
+      marginTop: '40px',
+      fontSize: '22px',
+      fontWeight: '500'
+    }
+
+    newFolderItemIcoBackground = {
+      width: '75px',
+      height: '75px',
+      borderRadius: '20px',
+      border: '2px dashed #BDBDBD',
+      display: 'inline-block',
+      color: '#BDBDBD',
+      float: 'left',
+      marginLeft: '20px',
+      marginTop: '20px'
+    }
+
+    newFolderItem = {
+      marginBottom: '20px'
     }
 
     ttip = {
