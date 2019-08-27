@@ -1,5 +1,6 @@
 package com.osa.mailClient.service;
 
+import com.osa.mailClient.entity.Folder;
 import com.osa.mailClient.entity.Message;
 import com.osa.mailClient.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class MessageService implements MessageServiceInterface {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private FolderService folderService;
 
     @Override
     public List<Message> findAll() {
@@ -32,5 +36,10 @@ public class MessageService implements MessageServiceInterface {
     @Override
     public List<Message> findByAccountId(long accountId) {
         return messageRepository.findAllByAccountId(accountId);
+    }
+
+    @Override
+    public List<Message> findAllByAccountIdFolder(long accountId, long folderId) {
+        return messageRepository.findAllByAccountIdFolder(accountId, folderId);
     }
 }

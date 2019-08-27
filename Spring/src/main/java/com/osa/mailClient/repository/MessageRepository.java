@@ -13,4 +13,10 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query(value = "SELECT * FROM messages m WHERE m.account_message_account_id = ?1 ORDER BY m.date_time desc ",  nativeQuery = true)
     List<Message> findAllByAccountId(long accountId);
+
+    @Query(value = "SELECT * FROM messages m WHERE m.account_message_account_id = ?1 and in_folder_folder_id = ?2 ORDER BY m.date_time desc ",  nativeQuery = true)
+    List<Message> findAllByAccountIdFolder(long accountId, long folderId);
+
+
+
 }

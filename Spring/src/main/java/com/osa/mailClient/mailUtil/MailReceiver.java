@@ -2,6 +2,7 @@ package com.osa.mailClient.mailUtil;
 
 import com.osa.mailClient.entity.Account;
 import com.osa.mailClient.service.AccountService;
+import com.osa.mailClient.service.FolderService;
 import com.osa.mailClient.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,9 @@ public class MailReceiver {
 
     @Autowired
     private static AccountService accountService;
+
+    @Autowired
+    private FolderService folderService;
 
 
     public void checkMail(String inServerAddress, String inServerPort, String username,String password, Account account)
@@ -122,8 +126,10 @@ public class MailReceiver {
                 entityMessage.setTo(account.getUsername());
                 entityMessage.setReceived(false);
 
+                com.osa.mailClient.entity.Folder folder = folderService.findDefaultFolderByName("Inbox", account.getId());
+                entityMessage.setInFolder(folder);
 
-               messageService.save(entityMessage);
+                messageService.save(entityMessage);
 
 
                 System.out.println(".............");

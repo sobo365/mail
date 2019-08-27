@@ -8,3 +8,28 @@
   font-family: 'IBM Plex Sans Condensed', sans-serif;
   
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+ 
+  border-radius: 10px;
+  background:  rgb(128, 127, 127, 0.6);
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  rgb(128, 127, 127, 0.6);
+}

@@ -116,7 +116,8 @@ export class AccountSelectDialog extends Component {
         marginLeft: '22px',
         fontWeight: '900',
         fontSize: '30px',
-        color: '#ff9066'
+        color: '#ff9066',
+        cursor: 'default'
     }    
 
     accountStyle = {

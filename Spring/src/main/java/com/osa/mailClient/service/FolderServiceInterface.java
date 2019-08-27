@@ -9,4 +9,7 @@ import java.util.List;
 @Service
 public interface FolderServiceInterface {
     List<Folder> findAll();
+    List<Folder> findAllByAccountFolder(Account account);
+    Folder save(Folder folder);
+    Folder findDefaultFolderByName(String name, long accountId);
 }

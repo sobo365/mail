@@ -3,21 +3,81 @@ import FolderItem from './FolderItem'
 import AddFolder from '../../dialogs/FolderDialog'
 
 export class FoldersSidebar extends Component {
+
+    constructor(props){
+        super(props);
+
+   
+        this.state = {
+            components: [],
+            folders: [],
+            inbox:{name: 'Inbox', color: '#6f32ff', ico:'fas fa-inbox'},
+            outbox:{name: 'Outbox', color: '#40ca7b', ico:'fas fa-angle-double-up'},
+            spam:{name: 'Spam', color: '#ff9066', ico:'fas fa-exclamation-circle'},
+            drafts:{name: 'Drafts', color: '#ffcd41', ico:'fas fa-file'},
+            custom:{name: 'Folder', color: '#9E9E9E', ico:'far fa-folder'},
+            messages: []
+        }
+    }
+
+    
+
+    renderList = () => {
+        this.state.components = [];
+        console.log(this.props.folders);
+        
+        for(let i = 0; i < this.props.folders.length; i++){
+            let folder = this.props.folders[i];
+            if(folder.name.toLowerCase() === 'inbox'){
+                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.inbox.name} messageCount= '2' folderColor={this.state.inbox.color} folderIco={this.state.inbox.ico} id = {folder.id} messages={this.props.messages.bind(this)}></FolderItem></li>)
+
+            }else if(folder.name.toLowerCase() === 'outbox'){
+                this.state.components.push( <li><FolderItem key={i} folderName={this.state.outbox.name} messageCount= '2' folderColor={this.state.outbox.color} folderIco={this.state.outbox.ico} messages={this.props.messages.bind(this)} ></FolderItem></li>)
+
+            }else if(folder.name.toLowerCase() === 'spam'){
+                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.spam.name} messageCount= '2' folderColor={this.state.spam.color} folderIco={this.state.spam.ico} id = {folder.id} messages={this.props.messages.bind(this)}></FolderItem></li>)
+
+            }else if(folder.name.toLowerCase() === 'drafts'){
+                this.state.components.push( <li><FolderItem key={i} folderName={this.state.drafts.name} messageCount= '2' folderColor={this.state.drafts.color} folderIco={this.state.drafts.ico} id = {folder.id} messages={this.props.messages.bind(this)}></FolderItem></li>)
+
+            }else{
+                this.state.components.push( <li><FolderItem key={i} folderName={folder.name} messageCount= '2' folderColor={this.state.custom.color} folderIco={this.state.custom.ico} id = {folder.id} messages={this.props.messages.bind(this)}></FolderItem></li>)
+
+            }
+
+            
+            
+           
+        }
+
+        return this.state.components;
+
+    }
+
+    update = () => {
+        this.props.updateFolders();
+        this.state.components = [];
+        this.renderList();
+    }
+
     render() {
         return (
             <div style={this.sidebar}>
                 <p style={this.header}>Folders</p>
                 <ul style = {this.listItem}>
-                    <li><FolderItem folderName='Inbox' messageCount= '2' folderColor='#6f32ff' folderIco='fas fa-inbox'></FolderItem></li>     
-                    <li><FolderItem folderName='Outbox' messageCount= '5' folderColor='#40ca7b' folderIco='fas fa-angle-double-up'></FolderItem></li>     
-                    <li><FolderItem folderName='Drafts' messageCount= '4' folderColor='#ffcd41' folderIco='fas fa-file'></FolderItem></li>     
-                    <li><FolderItem folderName='Spam' messageCount= '7' folderColor='#ff9066' folderIco='fas fa-exclamation-circle'></FolderItem></li> 
-                    <li><AddFolder></AddFolder></li>   
+                        
+                   
+                    {this.renderList()} 
+                    <li><AddFolder update={this.update}></AddFolder></li>
+                    <li><div style = {{height: '100px', width: '100%', display: 'inline-block'}}></div></li>
                 </ul>
+                
                 
             </div>
         )
     }
+
+    
 
     header = {
         color: '#9b97b1',
@@ -36,7 +96,8 @@ export class FoldersSidebar extends Component {
         background: '#EEEEEE',
         height: '100%',
         width: '25%',
-        overflow : 'auto'
+        overflow : 'auto',
+        boxShadow: '0px -1px 15px 0px rgba(0,0,0,0.2)'
         
     }
 

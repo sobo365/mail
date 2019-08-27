@@ -11,11 +11,18 @@
 }
 
 
-#folderItemIcoBackground:hover{
+.folderItem:hover{
     transition: 0.3s;
-    box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.4);
+    background: rgba(255, 255, 255, 0.75);
 
 }
+
+.folderItem:hover #folderItemIcoBackground{
+    box-shadow: none;
+ 
+}
+
+
 
 #folderItemIco{
     font-size: 30px;
@@ -29,6 +36,8 @@
     display: inline-block;
     float: left;
     margin-top: 10px;
+    border-radius: 10px;
+ 
 }
 
 .folderItemText{

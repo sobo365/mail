@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import AddContact from '../../dialogs/ContactDialog';
+import Compose from '../../dialogs/Compose';
 
 export class Contacts extends Component {
     constructor(props){
@@ -24,6 +25,7 @@ export class Contacts extends Component {
             <div>
                 <Sidebar contacts></Sidebar> 
                 <AddContact></AddContact>
+                <Compose></Compose>
                 <p style={this.title}>Contacts</p>                
 
                 

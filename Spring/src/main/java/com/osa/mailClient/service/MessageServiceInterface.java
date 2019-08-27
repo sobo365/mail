@@ -13,5 +13,6 @@ public interface MessageServiceInterface {
     List<Message> findByAccountId(long userId);
     Message save(Message message);
     Message findById(long id);
+    List<Message> findAllByAccountIdFolder(long accountId, long folderId);
 
 }

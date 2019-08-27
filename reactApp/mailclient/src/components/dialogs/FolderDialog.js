@@ -66,8 +66,43 @@ export class FolderDialog extends Component{
               folderName: ''
             });
         }else{
+          var token = localStorage.getItem('token');
+          axios({
+            method: 'post',
+            url: 'http://localhost:8080/folders/add',
+            data: {
+              name: this.state.folderName           
+            },
+            params:{
+              accountId: localStorage.getItem('account_id')
+            },
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          }).then((response) => {
+            //this.props.update();
+            //this.handleToggle();           
+            if(response.data.value == null){
+              this.props.update();
+              this.handleClose();
 
-        }
+            }else(
+              this.setState({
+                errorValue: true,
+                errorText: response.data.value
+                
+            }) 
+            )
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          }); 
+
+        }        
+        
         
     }
 

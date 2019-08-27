@@ -18,4 +18,19 @@ public class FolderService implements FolderServiceInterface {
     public List<Folder> findAll() {
         return folderRepository.findAll();
     }
+
+    @Override
+    public List<Folder> findAllByAccountFolder(Account account) {
+        return folderRepository.findAllByAccountFolder(account);
+    }
+
+    @Override
+    public Folder save(Folder folder) {
+        return folderRepository.save(folder);
+    }
+
+    @Override
+    public Folder findDefaultFolderByName(String name, long accountId) {
+        return folderRepository.findDefaultFolderByName(name, accountId);
+    }
 }

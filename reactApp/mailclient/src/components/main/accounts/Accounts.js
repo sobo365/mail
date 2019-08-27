@@ -3,6 +3,7 @@ import Sidebar from '../sidebar/Sidebar';
 import AccountCard from '../../cards/AccountCard';
 import AddAcount from '../../dialogs/AccountDialog';
 import axios from 'axios';
+import Compose from '../../dialogs/Compose';
 
 
 
@@ -89,7 +90,7 @@ export class Accounts extends Component {
         return (
             <div>
                 <Sidebar accounts></Sidebar> 
-                
+                <Compose></Compose>
                 <p style={this.title}>Accounts</p>
           
                 

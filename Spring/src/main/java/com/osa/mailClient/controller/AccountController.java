@@ -3,8 +3,11 @@ package com.osa.mailClient.controller;
 import com.osa.mailClient.dto.AccountDTO;
 import com.osa.mailClient.dto.ResponseMessageDTO;
 import com.osa.mailClient.entity.Account;
+import com.osa.mailClient.entity.Folder;
 import com.osa.mailClient.entity.User;
+import com.osa.mailClient.repository.FolderRepository;
 import com.osa.mailClient.service.AccountService;
+import com.osa.mailClient.service.FolderService;
 import com.osa.mailClient.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +30,21 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FolderService folderService;
+
     @PostMapping("/add")
     public ResponseEntity<?> addAccount(@RequestBody Account acc) {
+        String[] folderNames = {"Inbox", "Outbox", "Drafts", "Spam"};
         accountService.save(acc);
+        for(int i = 0; i < folderNames.length; i++){
+            Folder defaultFolder = new Folder();
+            defaultFolder.setName(folderNames[i]);
+            defaultFolder.setAccountFolder(acc);
+            folderService.save(defaultFolder);
+
+        }
+
         return ResponseEntity.ok(new ResponseMessageDTO(null));
 
     }

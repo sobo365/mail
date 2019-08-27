@@ -13,11 +13,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
+import './Message.css'
 
 export class Message extends Component {
 
     state = {
-        open: false
+        open: false,
+        unread : this.props.unread
     }
 
     
@@ -27,7 +29,8 @@ export class Message extends Component {
             open: !this.state.open,
             content: '',
             subject: '',
-            from: ''
+            from: '',
+            
         }) ;
     }
 
@@ -45,6 +48,9 @@ export class Message extends Component {
           }
         }).then((response) => {
             this.handleToggle();
+           this.setState({
+            unread: false
+           })
            
           })
           .catch(function (error) {
@@ -82,7 +88,7 @@ export class Message extends Component {
         const{open} = this.state
         return (
             <Fragment>
-                <ListItem style={this.props.unread ? this.unread: this.read} button alignItems="flex-start" onClick={this.openMessage}>
+                <ListItem style={this.state.unread ? this.unread: this.read} button alignItems="flex-start" onClick={this.openMessage}>
                         <ListItemAvatar>
                             {/* <Avatar style={{background: '#6f32ff'}}> <i class="far fa-user"></i></Avatar> */}
                             <Avatar style={{background: '#6f32ff'}}>{this.props.from[0].toUpperCase()}</Avatar>
@@ -90,7 +96,7 @@ export class Message extends Component {
                         <ListItemText
                         
                         primary={
-                            <Box fontWeight={this.props.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
+                            <Box fontWeight={this.state.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
                                     style={{display: 'inline-block', margin: '0', fontSize: '18px'}}>
                                    {this.props.subject ? this.props.subject : 'No Subject'} 
                             </Box>
@@ -104,7 +110,7 @@ export class Message extends Component {
                                 variant="body2"
                                 fontWeight= 'fontWeightBold'
                                 color="textPrimary" >
-                                <Box fontWeight={this.props.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
+                                <Box fontWeight={this.state.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
                                     style={{display: 'inline-block', margin: '0', fontSize: '16px'}}>
                                     {this.props.from}
                                 </Box>
@@ -114,7 +120,7 @@ export class Message extends Component {
                         }
                         />
 
-                       <i style={{display: this.props.unread ? 'inline-block' : 'none', margin: '16px' , color: '#6f32ff'}}  class="fas fa-circle"></i>
+                       <i style={{display: this.state.unread ? 'inline-block' : 'none', margin: '16px' , color: '#6f32ff'}}  class="fas fa-circle"></i>
                        <p style={{display:'inline-block'}}> {this.formatDate()}</p>
                        
                         
@@ -131,7 +137,7 @@ export class Message extends Component {
                     
                     BackdropProps = {{
                         style: {
-                            backgroundColor: '#1A237E',
+                            backgroundColor: 'rgba(	38,50,56, 1.0)',
                             boxShadow: 'none',
                           },
                     }}
@@ -139,7 +145,16 @@ export class Message extends Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle style={{margin: 'auto'}} id="alert-dialog-title">{this.props.subject ? this.props.subject: ''}</DialogTitle>
+                    <DialogTitle style={{margin: 'auto'}} id="alert-dialog-title">
+                        {this.props.subject ? this.props.subject: 'No Subject'}
+                        <div style = {{display: 'inline-block', float: 'right'}}>
+                            <i 
+                            id = 'closeBtn'
+                            onClick = {this.handleToggle}
+                            class="fas fa-times"></i>
+                        </div>
+
+                    </DialogTitle>
                     <DialogContent>
                     <DialogContentText style={this.messageContent} id="alert-dialog-description">
                         {this.props.content}

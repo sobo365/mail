@@ -47,6 +47,17 @@ public class MailController {
         return new ResponseEntity<>(messgeDTOS, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getByFolder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MessageDTO>> inbox(@RequestParam("accountId") long accountId, @RequestParam("folderId") long folderId){
+        Account acc = accountService.findById(accountId);
+        List<Message> messages = messageService.findAllByAccountIdFolder(accountId, folderId);
+        List<MessageDTO> messgeDTOS = new ArrayList<>();
+        for(Message m : messages){
+            messgeDTOS.add(new MessageDTO(m));
+        }
+        return new ResponseEntity<>(messgeDTOS, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseMessageDTO> newMailCheck(@RequestParam("id") int id){
         Account acc = accountService.findById(1);

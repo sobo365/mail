@@ -36,8 +36,54 @@ public class Folder implements Serializable {
     @JoinColumn
     private Account accountFolder;
 
+    public Folder() {
+    }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Folder> getChildFolders() {
+        return childFolders;
+    }
+
+    public void setChildFolders(List<Folder> childFolders) {
+        this.childFolders = childFolders;
+    }
+
+    public Folder getParentFolder() {
+        return parentFolder;
+    }
+
+    public void setParentFolder(Folder parentFolder) {
+        this.parentFolder = parentFolder;
+    }
+
+    public Account getAccountFolder() {
+        return accountFolder;
+    }
+
+    public void setAccountFolder(Account accountFolder) {
+        this.accountFolder = accountFolder;
+    }
 }

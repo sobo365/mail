@@ -9,6 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import Slide from '@material-ui/core/Slide';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
+import './Dialogs.css'
 
 export class Compose extends Component{
 
@@ -36,7 +37,7 @@ export class Compose extends Component{
         
         <Fragment>
 
-<Tooltip 
+{/* <Tooltip 
             style = {this.ttip}
             title="Compose Email">
                 <Fab  
@@ -47,7 +48,13 @@ export class Compose extends Component{
                 size = 'large'>
                   <AddIcon />
                 </Fab>
-            </Tooltip>
+            </Tooltip> */}
+
+            <div id = 'composeBtn'
+            onClick={this.handleToggle}>
+            <i id = 'composeBtnIco' class="fas fa-feather-alt"></i>
+            <p id = 'composeText'>Compose</p>
+            </div>
     
             <Dialog 
                 style = {this.dialogStyle}
@@ -56,13 +63,22 @@ export class Compose extends Component{
                 fullWidth={true}
                 maxWidth = {'md'}
                 aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">New Message</DialogTitle>
+            <DialogTitle style = {{color: '#1A237E'}} id="form-dialog-title">Compose Message
+            
+            <div style = {{display: 'inline-block', float: 'right'}}>
+                            <i 
+                            id = 'closeBtn'
+                            onClick = {this.handleToggle}
+                            class="fas fa-times"></i>
+                        </div>
+            </DialogTitle>
             <DialogContent>
 
               <TextField
                 label="To"
                 style={this.form}
                 margin="normal"
+                variant='outlined'
               />
 
               <TextField
@@ -71,6 +87,7 @@ export class Compose extends Component{
                 multiline
                 rowsMax="100"   
                 margin="normal"
+                variant='outlined'
 
                 />
 
@@ -80,28 +97,19 @@ export class Compose extends Component{
                 multiline
                 rowsMax="100"   
                 margin="normal"
+                variant='outlined'
 
                 />
 
             </DialogContent>
             <DialogActions>
 
-            <Button 
-                variant="contained"
-                color="secondary" 
-                onClick={this.handleToggle}
-                size="large"
-                style = {this.btn} >
-                Cancel
-              </Button>
+          <div id = 'composeSendBtn'>
+            <p id = 'composeSendText'>Send</p>
+            <i id = 'composeSendIco' class="fas fa-chevron-right"></i>
+          </div>
 
-            <Button 
-                variant="contained" 
-                color="primary" 
-                size="large"
-                style = {this.btn}>
-                Send
-              </Button>
+           
 
             </DialogActions>
           </Dialog>
@@ -109,6 +117,8 @@ export class Compose extends Component{
         )
         
     }
+
+  
 
 
 
