@@ -34,4 +34,68 @@ public class Contact implements Serializable {
 
     @OneToMany(mappedBy = "contactPhoto")
     private List<Photo> contactPhotos;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public User getUserContact() {
+        return userContact;
+    }
+
+    public void setUserContact(User userContact) {
+        this.userContact = userContact;
+    }
+
+    public List<Photo> getContactPhotos() {
+        return contactPhotos;
+    }
+
+    public void setContactPhotos(List<Photo> contactPhotos) {
+        this.contactPhotos = contactPhotos;
+    }
 }

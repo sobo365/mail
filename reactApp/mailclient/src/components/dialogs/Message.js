@@ -76,7 +76,7 @@ export class Message extends Component {
             }
             retVal = hours + ':' + mins;
         }else{
-            retVal = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+            retVal = date.getDate() + '.' + parseInt(date.getMonth() + 1)  + '.' + date.getFullYear();
         }
 
         return retVal;

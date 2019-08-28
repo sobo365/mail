@@ -5,12 +5,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Fab from '@material-ui/core/Fab';
 import Slide from '@material-ui/core/Slide';
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
-import axios from 'axios'
-import './Dialogs.css'
+import axios from 'axios';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
 
 export class AccountDialog extends Component{
 
@@ -45,6 +43,8 @@ export class AccountDialog extends Component{
       return <Slide direction="up" ref={ref} {...props} />;
     });
 
+  
+
     handleToggle = () => {
            this.setState({
                  
@@ -53,24 +53,24 @@ export class AccountDialog extends Component{
                errorValue:false,
 
                smtpAddressErrorMessage: '',
-               smtpAddress: '',
+               smtpAddress: this.props.smtpAddress,
                smtpAddressErrorValue: false,
 
                smtpPortErrorValue: false,
                smtpPortErrorMessage: '',
-               smtpPort: '',
+               smtpPort: this.props.smtpPort,
 
-               displayname: '',
+               displayname: this.props.displayname,
                displaynameErrorValue: false,
                displaynameErrorMessage: '',
 
                usernameErrorValue: false,
                usernameErrorMessage: '',
-               username: '',   
+               username: this.props.username,   
 
                passwordErrorValue: false,
                passwordErrorMessage: '',
-               password: '',
+               password: this.props.password,
            }) 
     }
 
@@ -240,37 +240,10 @@ export class AccountDialog extends Component{
         return(
         
         <Fragment>
-
-            {/* <Fab variant="extended" 
-                 style={this.fab}
-                 onClick={this.handleToggle}
-                 aria-label="delete" 
-                         >
-                             <i class="fas fa-plus"
-                                style={this.fabIcon}
-                                ></i>
-                        Add Account
-            </Fab> */}
-            {/* <Tooltip 
-            style = {this.ttip}
-            title="Add Account">
-                <Fab  
-                onClick={this.handleToggle}
-                style={this.fab}
-                color="secondary" 
-                aria-label="add" 
-                size = 'large'>
-                  <AddIcon />
-                </Fab>
-            </Tooltip> */}
-
-            <div 
-            className= 'add'
-            onClick={this.handleToggle}
-            style={this.cardStyle}>
-                <i class="fas fa-plus"
-                   style={this.plus}></i>
-            </div>
+            
+            <IconButton onClick={this.handleToggle}>
+                <CreateIcon fontSize="large" style={{color:'#EEEEEE'}}/>
+            </IconButton>
 
             <Dialog 
                 style = {this.dialogStyle}
@@ -279,26 +252,28 @@ export class AccountDialog extends Component{
                 fullWidth={true}
                 maxWidth = {'md'}
                 aria-labelledby="form-dialog-title">
-            <DialogTitle style = {{color: '#1A237E'}} id="form-dialog-title">New Account
+            <DialogTitle style = {{color: '#1A237E'}} id="form-dialog-title">Update Account
+            
             
             <Button 
                
-               color="primary" 
-               size="large"
-               onClick={this.handleSubmit}
-               style = {this.btn}>
-               Save
-             </Button>
+                color="primary" 
+                size="large"
+                onClick={this.handleSubmit}
+                style = {this.btn}>
+                Save
+              </Button>
 
-           <Button 
-              
-               color="secondary" 
-               size="large"
-               onClick={this.handleToggle}
-               style = {this.btn}>
-               Cancel
-             </Button>
+            <Button 
+               
+                color="secondary" 
+                size="large"
+                onClick={this.handleToggle}
+                style = {this.btn}>
+                Cancel
+              </Button>
 
+                        
             </DialogTitle>
             <DialogContent>
 
@@ -365,6 +340,8 @@ export class AccountDialog extends Component{
 
             </DialogContent>
             <DialogActions>
+
+            
 
             </DialogActions>
           </Dialog>

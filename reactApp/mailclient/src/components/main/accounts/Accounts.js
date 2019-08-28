@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from '../sidebar/Sidebar';
-import AccountCard from '../../cards/AccountCard';
+import AccountCard from './AccountCard';
 import AddAcount from '../../dialogs/AccountDialog';
 import axios from 'axios';
 import Compose from '../../dialogs/Compose';
@@ -57,6 +57,7 @@ export class Accounts extends Component {
                                                                 color = {this.state.colors[this.getRandomInt(this.state.colors.length)]}
                                                                 smtpAddress={response.data[i].smtpAddress}
                                                                 smtpPort={response.data[i].smtpPort}
+                                                                password={response.data[i].password}
                                                                 username={response.data[i].username}></AccountCard>)
             }
             this.state.accountComponents.push(<AddAcount update={this.update}></AddAcount>)

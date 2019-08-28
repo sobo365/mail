@@ -6,6 +6,7 @@ import com.osa.mailClient.entity.Account;
 import com.osa.mailClient.entity.Folder;
 import com.osa.mailClient.service.AccountService;
 import com.osa.mailClient.service.FolderService;
+import com.osa.mailClient.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +29,9 @@ public class FolderController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private MessageService messageService;
+
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FolderDTO>> getFolders(@RequestParam("id") int id){
@@ -35,7 +39,9 @@ public class FolderController {
         List<Folder> folders = folderService.findAllByAccountFolder(acc);
         List<FolderDTO> dtoFolders = new ArrayList<>();
         for(Folder f : folders){
-            dtoFolders.add(new FolderDTO(f));
+            FolderDTO dto = new FolderDTO(f);
+            dto.setMessageCount(messageService.countMessagesInFolder(f.getId()));
+            dtoFolders.add(dto);
         }
 
         return new ResponseEntity<>(dtoFolders, HttpStatus.OK);

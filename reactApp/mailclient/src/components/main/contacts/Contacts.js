@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import AddContact from '../../dialogs/ContactDialog';
 import Compose from '../../dialogs/Compose';
+import axios from 'axios';
+import ContactList from './ContactsList'
+import ContactDisplay from './ContactDisplay'
 
 export class Contacts extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            username: ''
+            username: '',
+            contacts: []
         }
     }
 
@@ -18,6 +22,33 @@ export class Contacts extends Component {
         }
         this.state.username = localStorage.getItem('username');
      }
+
+     componentDidMount = () =>{
+        var token = localStorage.getItem('token');
+        
+        axios({
+          method: 'get',
+          url: 'http://localhost:8080/contact/getContacts',
+          params: {
+              id: 1
+          },
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }).then((response) => {
+            this.setState({
+                contacts: response.data
+            })
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          }); 
+
+     }
      
 
     render() {
@@ -26,7 +57,8 @@ export class Contacts extends Component {
                 <Sidebar contacts></Sidebar> 
                 <AddContact></AddContact>
                 <Compose></Compose>
-                <p style={this.title}>Contacts</p>                
+                <ContactList style = {this.list} contacts={this.state.contacts}></ContactList>      
+                <ContactDisplay></ContactDisplay>      
 
                 
                 
@@ -34,13 +66,7 @@ export class Contacts extends Component {
         )
     }
 
-    title = {
-        fontSize: '35px',
-        fontWeight: '500',
-        color: '#3b3462',
-        float: 'left',
-        marginLeft: '13%'
-    }
+    
 }
 
 export default Contacts

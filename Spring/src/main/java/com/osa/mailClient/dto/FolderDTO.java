@@ -10,6 +10,8 @@ public class FolderDTO implements Serializable {
 
     private String name;
 
+    private int messageCount;
+
     public FolderDTO(Folder folder) {
         this.name = folder.getName();
         this.id = folder.getId();
@@ -29,5 +31,13 @@ public class FolderDTO implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(int messageCount) {
+        this.messageCount = messageCount;
     }
 }

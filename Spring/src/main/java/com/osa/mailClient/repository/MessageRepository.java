@@ -18,5 +18,9 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByAccountIdFolder(long accountId, long folderId);
 
 
+    @Query(value = "SELECT count(*)  from messages m where m.in_folder_folder_id = ?1 ",  nativeQuery = true)
+    int countMessagesInFolder(long folderId);
+
+
 
 }

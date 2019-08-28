@@ -3,6 +3,7 @@
     width: 75px;
     height: 75px;
     border-radius: 20px;
+    /* border-radius: 20px 0px 0px 20px; */
     margin: 10px;
     box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.3);
     float: left;
@@ -36,8 +37,22 @@
     display: inline-block;
     float: left;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 15px 0px 0px 15px;
  
+}
+
+.folderItemActive{
+    background: rgba(255, 255, 255, 0.75);
+    width: 100%;
+    display: inline-block;
+    float: left;
+    margin-top: 10px;
+    border-radius: 15px 0px 0px 15px;
+ 
+}
+
+.folderItemActive #folderItemIcoBackground{
+    box-shadow: none;
 }
 
 .folderItemText{

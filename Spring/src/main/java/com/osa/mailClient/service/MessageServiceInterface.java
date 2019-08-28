@@ -14,5 +14,6 @@ public interface MessageServiceInterface {
     Message save(Message message);
     Message findById(long id);
     List<Message> findAllByAccountIdFolder(long accountId, long folderId);
+    int countMessagesInFolder(long folderId);
 
 }

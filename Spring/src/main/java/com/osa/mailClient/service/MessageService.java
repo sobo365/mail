@@ -42,4 +42,9 @@ public class MessageService implements MessageServiceInterface {
     public List<Message> findAllByAccountIdFolder(long accountId, long folderId) {
         return messageRepository.findAllByAccountIdFolder(accountId, folderId);
     }
+
+    @Override
+    public int countMessagesInFolder(long folderId) {
+        return messageRepository.countMessagesInFolder(folderId);
+    }
 }

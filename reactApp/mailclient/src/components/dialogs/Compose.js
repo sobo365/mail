@@ -65,12 +65,14 @@ export class Compose extends Component{
                 aria-labelledby="form-dialog-title">
             <DialogTitle style = {{color: '#1A237E'}} id="form-dialog-title">Compose Message
             
-            <div style = {{display: 'inline-block', float: 'right'}}>
-                            <i 
-                            id = 'closeBtn'
-                            onClick = {this.handleToggle}
-                            class="fas fa-times"></i>
-                        </div>
+            <Button 
+               
+                color="secondary" 
+                size="large"
+                onClick={this.handleToggle}
+                style = {this.btn}>
+                Cancel
+              </Button>
             </DialogTitle>
             <DialogContent>
 
@@ -119,14 +121,17 @@ export class Compose extends Component{
     }
 
   
-
-
-
     btn = {
+      fontSize: '20px',
+      fontWeight: '500',
       width: '110px',
-      marginRight: '22px',
-      marginBottom: '5px',
+      float: 'right',
+      marginRight: '10px',
+      marginTop: '0px',
     }
+
+
+    
 
     fabIcon = {
         marginRight: '10px',

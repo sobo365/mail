@@ -3,7 +3,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
-import DeleteAccount from '../dialogs/DeleteAccount';
+import DeleteAccount from '../../dialogs/DeleteAccount';
+import UpdateAccount from './UpdateAccount';
 
 export class AccountCard extends Component {
 
@@ -11,8 +12,8 @@ export class AccountCard extends Component {
     super(props);
 
     this.state = {
-        displayname: '',
-        username: '',
+        displayname: this.props.displayname,
+        username: this.props.username,
         smtpAddress: '',
         smtpPort: '',
         id: 0
@@ -73,25 +74,18 @@ export class AccountCard extends Component {
              
                 
                 <Grid item style={{width:'15%'}} >
-                  <IconButton>
-                    <CreateIcon fontSize="large" style={{color:'#EEEEEE'}}/>
-                  </IconButton>
+                  <UpdateAccount displayname = {this.props.displayname} 
+                                 username = {this.props.username} 
+                                 smtpPort = {this.props.smtpPort}
+                                 smtpAddress= {this.props.smtpAddress}
+                                 password = {this.props.password}
+                                 ></UpdateAccount>
                   <DeleteAccount acccount_id={this.props.id}></DeleteAccount>
                   
                 </Grid>
                 
                 </Grid>
                 
-              
-                
-                
-              {/* <CardActions>
-                <DeleteAccount acccount_id={this.props.id}></DeleteAccount>
-                
-                <Button size="medium" color="primary" variant='outlined' style={{width:'50%'}}>
-                  Edit
-                </Button>
-              </CardActions> */}
             </div>
           );
     }

@@ -10,13 +10,21 @@ export class EmailListPaper extends Component {
 
         this.state = {
             components: [],
-            messages: []
+            messages: [],
+            br : 1
         }
     }
 
 
     componentWillReceiveProps(){
         document.getElementById("proggress").style.display = "none";
+        this.state.br++;    
+    }
+
+    componentDidMount = () =>{
+        this.setState({
+            br: 0
+        }); 
     }
 
 
@@ -28,10 +36,12 @@ export class EmailListPaper extends Component {
             this.state.components.push(<Message key={i} unread={message.unread} id = {message.id} content={message.content} subject={message.subject} from={message.from} dateTime={message.dateTime}></Message>)
         }
      
-        if(this.state.components.length > 0){
-            return this.state.components;
+        if(this.state.components.length <= 0 && this.state.br > 1){
+            return (<div><p style={this.message}>No Messages!</p></div>)
         }else{
-            return (<div><p style={this.message}>Empty folder!</p></div>)
+            
+              
+            return this.state.components;
         }
         
         
