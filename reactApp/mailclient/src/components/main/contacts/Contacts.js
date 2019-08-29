@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Sidebar from '../sidebar/Sidebar';
-import AddContact from '../../dialogs/ContactDialog';
 import Compose from '../../dialogs/Compose';
 import axios from 'axios';
 import ContactList from './ContactsList'
@@ -12,7 +11,10 @@ export class Contacts extends Component {
 
         this.state = {
             username: '',
-            contacts: []
+            contacts: [],
+            contact: {
+                displayname: ''
+            }
         }
     }
 
@@ -21,16 +23,14 @@ export class Contacts extends Component {
             this.props.history.push('/login');
         }
         this.state.username = localStorage.getItem('username');
-     }
 
-     componentDidMount = () =>{
         var token = localStorage.getItem('token');
         
         axios({
           method: 'get',
           url: 'http://localhost:8080/contact/getContacts',
           params: {
-              id: 1
+              id: localStorage.getItem('user_id')
           },
           headers: {
             Authorization: 'Bearer ' + token
@@ -47,24 +47,34 @@ export class Contacts extends Component {
           .then(function () {
             // always executed
           }); 
-
      }
+
+     getContact = (contactVal) => {
+        this.setState({
+            contact: contactVal
+        })
+
+        
+    }
+
+     
      
 
     render() {
         return (
             <div>
                 <Sidebar contacts></Sidebar> 
-                <AddContact></AddContact>
                 <Compose></Compose>
-                <ContactList style = {this.list} contacts={this.state.contacts}></ContactList>      
-                <ContactDisplay></ContactDisplay>      
 
+                <ContactList getContact={this.getContact.bind(this)} update={this.componentDidMount} style = {this.list} contacts={this.state.contacts}></ContactList>      
+
+                <ContactDisplay contact = {this.state.contact}></ContactDisplay>      
                 
                 
             </div>
         )
     }
+
 
     
 }

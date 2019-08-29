@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    @Query()
     List<Contact> findAllByuserContact(User userContact);
 }

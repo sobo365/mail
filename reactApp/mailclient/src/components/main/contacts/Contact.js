@@ -1,28 +1,69 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import ListItemText from '@material-ui/core/ListItemText';
 import './contact.css'
 
 export class Contact extends Component {
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            contact:{
+                displayname: this.props.displayname
+            }
+        }
+    }
+
+    handleClick = () =>{
+        this.props.getContact(this.state.contact);
+    }
+
+    
+
     render() {
         return (
             
-                <ListItem id = 'contact' button>
+                <ListItem id = 'contact' button onClick={this.handleClick}>
                     <ListItemAvatar>
                                 <Avatar style={{background: '#6f32ff'}}> <i class="far fa-user"></i></Avatar>   
                     </ListItemAvatar>
 
-                <p style={{width: '100%', display: 'inline', margin: '0'}}>{this.props.displayname}</p>
-                
-                <p style={{width: '100%', display: 'inline'}}>{this.props.displayname}</p>
+                    <ListItemText
+                        
+                        primary={
+                            <Box  m={1} fontFamily='Roboto' fontWeight='500' fontSize='21px' color='#424242' style={{display: 'inline-block', margin: '0'}}>
+                                   {this.props.firstname + ' ' + this.props.lastname} 
+                            </Box>
+                            
+                        }
+                        secondary={
+                            <Fragment>
+                            <Typography
+                                style={{display: 'inline-block'}}
+                                component="span"
+                                variant="body2"
+                                fontFamily='Roboto'
+                                fontWeight= '500'
+                                color="#757575" >
+                                <Box  m={1}  style={{display: 'inline-block', margin: '0', fontSize: '16px'}}>
+                                    {this.props.email}
+                                </Box>
+                            </Typography>
+                           
+                            </Fragment>
+                        }
+                        />
                 </ListItem>
             
         )
     }
 
     contact = {
-        background: '#EEEEEE',
         width: '85%',
         margin: 'auto',
         borderRadius: '20px',

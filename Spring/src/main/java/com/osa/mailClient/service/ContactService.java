@@ -1,4 +1,4 @@
-package com.osa.mailClient.service.impl;
+package com.osa.mailClient.service;
 
 import com.osa.mailClient.entity.Contact;
 import com.osa.mailClient.entity.User;
@@ -18,5 +18,10 @@ public class ContactService implements ContactServiceInterface {
     @Override
     public List<Contact> findAllByuserContact(User userContact) {
         return contactRepository.findAllByuserContact((userContact));
+    }
+
+    @Override
+    public Contact save(Contact contact) {
+        return contactRepository.save(contact);
     }
 }

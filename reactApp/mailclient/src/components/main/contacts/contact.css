@@ -6,9 +6,15 @@
     margin-bottom: 10px;
     transition: 0.2s;
     height: 85px;
+    
 }
+
+
+
+
 
 #contact:hover{
     transition: 0.2s;
     transform: scale(1.05);
 }
+

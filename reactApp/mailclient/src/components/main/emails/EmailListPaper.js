@@ -66,10 +66,9 @@ export class EmailListPaper extends Component {
     }
 
     content = {
-       // overflowY: 'auto',  
-        width: '92%',
-        float: 'right',
-        marginBottom: '120px'
+        overflow: 'auto',  
+        width: '100%',
+        float: 'right'
     }
 
     message = {

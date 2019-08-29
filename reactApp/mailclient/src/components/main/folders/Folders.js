@@ -81,10 +81,9 @@ export class Folders extends Component {
 
     list = { 
         overflow: 'hidden',
-        width: '73%',
-        margin:'auto',
+        width: '67.5%',
         float: 'left',
-        marginLeft: '30px',
+        marginLeft: '120px',
         marginBottom: '120px'
     }
 

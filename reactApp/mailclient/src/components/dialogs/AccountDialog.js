@@ -241,29 +241,6 @@ export class AccountDialog extends Component{
         
         <Fragment>
 
-            {/* <Fab variant="extended" 
-                 style={this.fab}
-                 onClick={this.handleToggle}
-                 aria-label="delete" 
-                         >
-                             <i class="fas fa-plus"
-                                style={this.fabIcon}
-                                ></i>
-                        Add Account
-            </Fab> */}
-            {/* <Tooltip 
-            style = {this.ttip}
-            title="Add Account">
-                <Fab  
-                onClick={this.handleToggle}
-                style={this.fab}
-                color="secondary" 
-                aria-label="add" 
-                size = 'large'>
-                  <AddIcon />
-                </Fab>
-            </Tooltip> */}
-
             <div 
             className= 'add'
             onClick={this.handleToggle}
@@ -379,9 +356,7 @@ export class AccountDialog extends Component{
       marginTop: '115px'
     }
 
-    ttip = {
-        fontSize: '100px'
-    }
+  
 
 
     btn = {
@@ -389,27 +364,17 @@ export class AccountDialog extends Component{
       fontWeight: '500',
       width: '110px',
       float: 'right',
-      marginRight: '10px',
       marginTop: '0px',
     }
 
-    fabIcon = {
-        
-        fontSize: '30px'
-    }
+   
 
 
     form = {
       width: '100%'
     }
 
-    fab = {
-       bottom : '0',
-       right: '0',
-       margin : '50px',
-       position: 'fixed',
-       zIndex: '10'
-    }
+  
 
     cardStyle = {
       color: '#fff',

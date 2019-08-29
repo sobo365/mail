@@ -9,4 +9,5 @@ import java.util.List;
 @Service
 public interface ContactServiceInterface {
     List<Contact> findAllByuserContact(User userContact);
+    Contact save(Contact contact);
 }

@@ -13,3 +13,5 @@ insert into folders(folder_id, name, account_folder_account_id, parent_folder_fo
 insert into folders(folder_id, name, account_folder_account_id, parent_folder_folder_id) values(2, 'outbox', 1, null)
 insert into folders(folder_id, name, account_folder_account_id, parent_folder_folder_id) values(3, 'spam', 1, null)
 insert into folders(folder_id, name, account_folder_account_id, parent_folder_folder_id) values(4, 'drafts', 1, null)
+
+insert into contacts(contact_id, displayname, email, firstname, lastname, note, user_contact_user_id) values(15, 'pera', 'pera@gmail.com', 'pera', 'peric' , 'note', 1) ;

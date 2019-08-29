@@ -137,7 +137,7 @@ export class Message extends Component {
                     
                     BackdropProps = {{
                         style: {
-                            backgroundColor: 'rgba(	38,50,56, 1.0)',
+                            backgroundColor: 'rgba(	38,50,56, 0.95)',
                             boxShadow: 'none',
                           },
                     }}
@@ -171,6 +171,7 @@ export class Message extends Component {
 
     messageContent = {
         margin: '35px'
+        
     }
 
     unread = {
@@ -178,7 +179,7 @@ export class Message extends Component {
     }
 
     read = {
-        
+       
     }
 
    

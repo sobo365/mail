@@ -69,13 +69,23 @@ export class Emails extends Component {
          
                 <Sidebar emails></Sidebar> 
                 <Compose></Compose>
-
+                <div style={this.list}>
                 <EmailList messages={this.state.messages}></EmailList>
+                </div>
+                
 
                 
                 
             </div>
         )
+    }
+
+    list = {
+      overflow: 'hidden',
+        width: '92%',
+        float: 'left',
+        marginLeft: '124px',
+        marginBottom: '120px'
     }
 
     

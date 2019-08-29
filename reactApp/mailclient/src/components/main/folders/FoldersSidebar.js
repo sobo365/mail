@@ -24,7 +24,6 @@ export class FoldersSidebar extends Component {
 
     renderList = () => {
         this.state.components = [];
-        console.log(this.props.folders)
         
         for(let i = 0; i < this.props.folders.length; i++){
             let folder = this.props.folders[i];
