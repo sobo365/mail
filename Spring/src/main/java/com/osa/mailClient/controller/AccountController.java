@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,13 @@ public class AccountController {
 
         }
 
+        return ResponseEntity.ok(new ResponseMessageDTO(null));
+
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateAccount(@RequestBody Account acc) {
+        accountService.save(acc);
         return ResponseEntity.ok(new ResponseMessageDTO(null));
 
     }

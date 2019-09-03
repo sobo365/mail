@@ -4,7 +4,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,27 +12,54 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Move from '../main/emails/MoveDialog'
+
 import './Message.css'
 
 export class Message extends Component {
 
     state = {
         open: false,
-        unread : this.props.unread
+        unread : this.props.unread,
+        menu: false,
+        xPosition: 0,
+        yPosition: 0,
+        anchorEl: ''
     }
 
     
 
-    handleToggle = () => {
+    openDialog = (e) => {
+      
+            this.setState({
+                open: true,
+                content: '',
+                subject: '',
+                from: ''
+            }) ;
+       
+        
+        
+            
+    }
+    
+
+    closeDialog = (e) => {
+
         this.setState({
-            open: !this.state.open,
+            open: false,
             content: '',
             subject: '',
-            from: '',
+            from: ''
             
         }) ;
     }
 
+
+    
     openMessage = () => {
         var token = localStorage.getItem('token');
         
@@ -41,13 +67,13 @@ export class Message extends Component {
           method: 'get',
           url: 'http://localhost:8080/mail/read',
           params: {
-              id: this.props.id
+              id: this.props.message.id
           },
           headers: {
             Authorization: 'Bearer ' + token
           }
         }).then((response) => {
-            this.handleToggle();
+            this.openDialog();
            this.setState({
             unread: false
            })
@@ -63,7 +89,7 @@ export class Message extends Component {
 
     formatDate = () =>{
         let current = new Date();
-        let date = new Date(this.props.dateTime);
+        let date = new Date(this.props.message.dateTime);
         let retVal = ''
         if((current - date) <= 82800000){
             let hours = date.getHours();
@@ -84,21 +110,55 @@ export class Message extends Component {
 
     }
 
+    openMenu = (e) =>{
+        if(this.props.menuAvailable){
+            if(this.state.menu){
+                this.setState({
+                    menu: false
+                })
+            }else{
+            this.setState({
+                menu: true,
+                xPosition: e.pageX,
+                yPosition: e.pageY,
+                anchorEl: e.currentTarget 
+            })
+        }
+    }
+        e.preventDefault();
+        return false;
+    }
+
+    closeMenu = (e) => {
+        
+        this.setState({
+            menu: false
+        })
+    }
+
+
+   
+
     render() {
         const{open} = this.state
         return (
             <Fragment>
-                <ListItem style={this.state.unread ? this.unread: this.read} button alignItems="flex-start" onClick={this.openMessage}>
+                <ListItem style={this.state.unread ? this.unread: this.read} 
+                          button 
+                          alignItems="flex-start"
+                          onContextMenu={this.openMenu}
+                          onClick={this.openMessage}>
                         <ListItemAvatar>
                             {/* <Avatar style={{background: '#6f32ff'}}> <i class="far fa-user"></i></Avatar> */}
-                            <Avatar style={{background: '#6f32ff'}}>{this.props.from[0].toUpperCase()}</Avatar>
+                            
+                            <Avatar style={{background: '#6f32ff'}}>{this.props.message.from[0].toUpperCase()}</Avatar>
                         </ListItemAvatar>
                         <ListItemText
                         
                         primary={
                             <Box fontWeight={this.state.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
                                     style={{display: 'inline-block', margin: '0', fontSize: '18px'}}>
-                                   {this.props.subject ? this.props.subject : 'No Subject'} 
+                                   {this.props.message.subject ? this.props.message.subject : 'No Subject'} 
                             </Box>
                             
                         }
@@ -112,19 +172,36 @@ export class Message extends Component {
                                 color="textPrimary" >
                                 <Box fontWeight={this.state.unread ? "fontWeightBold" : "fontWeightRegular"} m={1} 
                                     style={{display: 'inline-block', margin: '0', fontSize: '16px'}}>
-                                    {this.props.from}
+                                    {this.props.message.from}
                                 </Box>
                             </Typography>
-                            {" — " + this.props.content.substring(0,30) + ' ...'}
+                            {" — " + this.props.message.content.substring(0,30) + ' ...'}
                             </Fragment>
                         }
                         />
+                         <Menu
+                            id="simple-menu"
+                            onClose={this.closeMenu}
+                            keepMounted
+                            open={this.state.menu}
+                            anchorEl={this.state.anchorEl}
+                            
+                            style={{ marginLeft: this.state.xPosition - 100}}
+                           
+                        >
+                            <Move closeDialog={this.closeDialog} closeMenu={this.closeMenu} update={this.props.update} message={this.props.message}></Move>
 
+                            <MenuItem  >
+                            <DeleteIcon fontSize="medium" style={{color:'#616161', marginRight: '13px'}}/>
+                            Delete</MenuItem>
+
+                        </Menu>
                        <i style={{display: this.state.unread ? 'inline-block' : 'none', margin: '16px' , color: '#6f32ff'}}  class="fas fa-circle"></i>
                        <p style={{display:'inline-block'}}> {this.formatDate()}</p>
                        
                         
                     </ListItem>
+                    
                     <Divider variant="inset" component="li" />
 
 
@@ -141,23 +218,23 @@ export class Message extends Component {
                             boxShadow: 'none',
                           },
                     }}
-                    onClose={this.handleToggle}
+                    onClose={this.closeDialog}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle style={{margin: 'auto'}} id="alert-dialog-title">
-                        {this.props.subject ? this.props.subject: 'No Subject'}
+                        {this.props.message.subject ? this.props.message.subject: 'No Subject'}
                         <div style = {{display: 'inline-block', float: 'right'}}>
                             <i 
                             id = 'closeBtn'
-                            onClick = {this.handleToggle}
+                            onClick = {this.closeDialog}
                             class="fas fa-times"></i>
                         </div>
 
                     </DialogTitle>
                     <DialogContent>
                     <DialogContentText style={this.messageContent} id="alert-dialog-description">
-                        {this.props.content}
+                        {this.props.message.content}
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>

@@ -35,31 +35,40 @@ export class Emails extends Component {
 
      componentDidMount(){
        
-        var token = localStorage.getItem('token');
-        
-        axios({
-          method: 'get',
-          url: 'http://localhost:8080/mail',
-          params: {
-              id: localStorage.getItem('account_id')
-          },
-          headers: {
-            Authorization: 'Bearer ' + token
-          }
-        }).then((response) => {
-            console.log(response.data);
-            this.setState({
-              messages: response.data
-            })
-           
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-          .then(function () {
-            // always executed
-          }); 
+        this.getMessages('');
 
+     }
+
+     getMessages = (filterValue) =>{
+      var token = localStorage.getItem('token');
+        
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/mail',
+        params: {
+            id: localStorage.getItem('account_id'),
+            filter: filterValue
+        },
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then((response) => {
+          console.log(response.data);
+          this.setState({
+            messages: response.data
+          })
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        }); 
+     }
+
+     getFilter = (filter) => {
+       this.getMessages(filter);
      }
      
 
@@ -70,7 +79,7 @@ export class Emails extends Component {
                 <Sidebar emails></Sidebar> 
                 <Compose></Compose>
                 <div style={this.list}>
-                <EmailList messages={this.state.messages}></EmailList>
+                <EmailList searchBox menuAvailable={false} filter={this.getFilter.bind(this)} messages={this.state.messages}></EmailList>
                 </div>
                 
 

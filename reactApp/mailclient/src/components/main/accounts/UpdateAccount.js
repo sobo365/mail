@@ -200,8 +200,9 @@ export class AccountDialog extends Component{
           var token = localStorage.getItem('token');
           axios({
             method: 'post',
-            url: 'http://localhost:8080/account/add',
+            url: 'http://localhost:8080/account/update',
             data: {
+              id: this.props.id,
               username: this.state.username,
               password: this.state.password,
               displayname: this.state.displayname,
@@ -216,15 +217,13 @@ export class AccountDialog extends Component{
               Authorization: 'Bearer ' + token
             }
           }).then((response) => {
+            this.handleToggle(); 
             this.props.update();
-            this.handleToggle();           
+                      
           })
           .catch(function (error) {
             console.log(error);
           })
-          .then(function () {
-            // always executed
-          }); 
 
         }        
     }

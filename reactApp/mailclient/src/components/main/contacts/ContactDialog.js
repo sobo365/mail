@@ -7,7 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import ListItem from '@material-ui/core/ListItem';
-import axios from 'axios'
+import axios from 'axios';
+import PageviewIcon from '@material-ui/icons/Pageview';
+import Avatar from '@material-ui/core/Avatar';
+import './contact.css'
 
 export class ContactDialog extends Component{
 
@@ -33,6 +36,9 @@ export class ContactDialog extends Component{
         note: '',
         noteErrorValue: false,
         noteErrorMessage: '',
+
+        file: "", 
+        imagePreviewUrl: "" 
     }
 
     Transition = React.forwardRef(function Transition(props, ref) {
@@ -142,6 +148,8 @@ export class ContactDialog extends Component{
               note: '',
               noteErrorValue: false,
               noteErrorMessage: '',
+              file: '',
+              imagePreviewUrl: ''
            }) 
     }
 
@@ -172,6 +180,9 @@ export class ContactDialog extends Component{
           noteErrorMessage: 'Empty field!'
         })
       }else{
+        var formData = new FormData();
+        formData.append('photo', 'ok');
+
         var token = localStorage.getItem('token');
           axios({
             method: 'post',
@@ -185,9 +196,11 @@ export class ContactDialog extends Component{
              
             },
             params: {
-              id: localStorage.getItem('user_id')
+              id: localStorage.getItem('user_id'),
+              photo: formData
             },
             headers: {
+              'Content-Type' : 'multipart/form-data',
               Authorization: 'Bearer ' + token
             }
           }).then((response) => {
@@ -206,11 +219,36 @@ export class ContactDialog extends Component{
       
     }
 
+    handleImageChange(e) {
+      e.preventDefault();
+  
+      let reader = new FileReader();
+      let file = e.target.files[0];
+  
+      reader.onloadend = () => {
+        this.setState({
+          file: file,
+          imagePreviewUrl: reader.result
+        });
+      };
+      
+      reader.readAsDataURL(file);
+
+    }
+
     render(){
         
         const{open} = this.state
 
-        
+        let { imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+          $imagePreview = <img style={{width: '100px', height: '100px', borderRadius: '50%'}} src={imagePreviewUrl} />;
+        } else {
+          $imagePreview = (
+            <i id='selectIco' class="far fa-user"></i>
+          );
+        }
      
         return(
         
@@ -251,7 +289,22 @@ export class ContactDialog extends Component{
             </DialogTitle>
             <DialogContent>
 
-  
+
+
+            <div class="upload-btn-wrapper">
+              <div className="imgPreview">
+                {$imagePreview}
+              </div>
+              <input 
+              type="file" 
+              name="myfile"
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              onChange={e => this.handleImageChange(e)}
+              type="file" />
+            </div>
+            
 
               <TextField
                 label="Display Name"
@@ -308,7 +361,7 @@ export class ContactDialog extends Component{
                 helperText={this.state.noteErrorMessage}
               />
               
-
+             
 
             </DialogContent>
             <DialogActions>

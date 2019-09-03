@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FolderService implements FolderServiceInterface {
@@ -32,5 +33,10 @@ public class FolderService implements FolderServiceInterface {
     @Override
     public Folder findDefaultFolderByName(String name, long accountId) {
         return folderRepository.findDefaultFolderByName(name, accountId);
+    }
+
+    @Override
+    public Folder findById(long id) {
+        return folderRepository.getOne(id);
     }
 }

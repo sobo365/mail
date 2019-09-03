@@ -66,7 +66,7 @@ export class ContactDisplay extends Component {
                         <div style={this.messageHeader}>
                             <p style={this.messageTitle}>Messages</p>
                         </div>
-                        <EmailList  messages={this.state.messages}></EmailList>
+                        <EmailList menuAvailable={false} messages={this.state.messages}></EmailList>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,6 @@ export class ContactDisplay extends Component {
     }
 
     display = {
-        background: '#147EFB',
         position: 'fixed',
         display: 'inline-block',
         width: '50%',

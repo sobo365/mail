@@ -13,7 +13,8 @@ export class Folders extends Component {
         this.state = {
             username: '',
             folders: [],
-            messages: []
+            messages: [],
+            filter: ''
         }
     }
 
@@ -42,6 +43,8 @@ export class Folders extends Component {
         })
 
      }
+     
+    
 
      update = () =>{
          this.componentDidMount();
@@ -51,7 +54,18 @@ export class Folders extends Component {
         this.setState({
             messages: messagesVal
         })
+       
     }
+
+    getFilter = (filterVal) => {
+        this.setState({
+            filter: filterVal
+        })
+        
+    
+    }
+
+    
      
 
     render() {
@@ -61,10 +75,10 @@ export class Folders extends Component {
                 <Compose></Compose>
 
                 <div style={this.list}>
-                    <EmailList  messages={this.state.messages}></EmailList>
+                    <EmailList filter={this.getFilter.bind(this)} searchBox menuAvailable messages={this.state.messages}></EmailList>
                 </div>
                 
-                <FoldersSidebar messages = {this.getMessages.bind(this)} updateFolders = {this.update} folders = {this.state.folders}></FoldersSidebar>             
+                <FoldersSidebar filter={this.state.filter} messages = {this.getMessages.bind(this)}  updateFolders = {this.update} folders = {this.state.folders}></FoldersSidebar>             
 
                 
                 

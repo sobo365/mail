@@ -16,4 +16,5 @@ public interface MessageServiceInterface {
     List<Message> findAllByAccountIdFolder(long accountId, long folderId);
     int countMessagesInFolder(long folderId);
 
+
 }

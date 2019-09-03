@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import Message from '../../dialogs/Message';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import './email.css'
 
 export class EmailListPaper extends Component {
 
@@ -11,10 +14,12 @@ export class EmailListPaper extends Component {
         this.state = {
             components: [],
             messages: [],
-            br : 1
+            br : 1,
+            searchField: false
         }
     }
 
+    
 
     componentWillReceiveProps(){
         document.getElementById("proggress").style.display = "none";
@@ -33,7 +38,7 @@ export class EmailListPaper extends Component {
         
         for(let i = 0; i < this.props.messages.length; i++){
             let message = this.props.messages[i];
-            this.state.components.push(<Message key={i} unread={message.unread} id = {message.id} content={message.content} subject={message.subject} from={message.from} dateTime={message.dateTime}></Message>)
+            this.state.components.push(<Message key={i} message={message} update={this.props.update} menuAvailable={this.props.menuAvailable}></Message>)
         }
      
         if(this.state.components.length <= 0 && this.state.br > 1){
@@ -48,14 +53,39 @@ export class EmailListPaper extends Component {
     }
 
 
-
-
-
+    handleSearchFilter = event =>{
+        this.props.filter(event.target.value);
+        if(event.target.value == ''){
+            this.setState({
+                searchField: false
+            })
+        }else{
+            this.setState({
+                searchField: true
+            })
+        }
+        
+        
+    }
 
     render() {
         return (
+            
             <div style={this.content}>
-              <LinearProgress id = 'proggress'></LinearProgress>
+            <LinearProgress id = 'proggress'></LinearProgress>
+            <div id = {this.props.searchBox ? 'searchBoxAvailable' : 'noSearchBox'}>
+                <div id = {this.state.searchField ? 'fullWidthSearchBox' : 'searchBox'}>
+                <i id = 'searchIco' class="fas fa-search"></i>
+                <TextField
+                    id="searchInput"
+                    placeholder="Search"
+                    onChange={this.handleSearchFilter}
+                    onFocus={this.handleFocus}
+                    autoComplete='off'
+                /> 
+                </div>
+            </div>
+            
             <List style={{overflowY: 'hidden'}} component="nav" aria-label="main mailbox folders">
                 {this.renderList()}          
 
@@ -64,6 +94,8 @@ export class EmailListPaper extends Component {
             </div>  
         )
     }
+
+    
 
     content = {
         overflow: 'auto',  

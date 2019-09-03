@@ -40,8 +40,8 @@ export class Sidebar extends Component {
                 <ul style = {this.listItem}>
                     <li ><NavLink to = '/home'><SidebarLink active={this.props.home} icoName="fas fa-home" value = "Home"></SidebarLink></NavLink></li>
                     <li ><NavLink to = '/emails'><SidebarLink active={this.props.emails} icoName="fas fa-envelope" value = "Emails"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/accounts'><SidebarLink active={this.props.accounts} icoName="fas fa-user" value = "Accounts"></SidebarLink></NavLink></li>
-                    <li ><NavLink to = '/contacts'><SidebarLink active={this.props.contacts} icoName="fas fa-address-book" value = "Contacts"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/accounts'><SidebarLink active={this.props.accounts} icoName="fas fa-address-book" value = "Accounts"></SidebarLink></NavLink></li>
+                    <li ><NavLink to = '/contacts'><SidebarLink active={this.props.contacts} icoName="fas fa-user" value = "Contacts"></SidebarLink></NavLink></li>
                     <li ><NavLink to = '/folders'><SidebarLink active={this.props.folders} icoName="fas fa-folder" value = "Folders"></SidebarLink></NavLink></li>
                 </ul>
                 

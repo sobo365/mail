@@ -25,6 +25,7 @@ export class App extends Component {
    interval = setInterval(() => {
     var token = localStorage.getItem('token');
         
+    if(localStorage.getItem('account_id') != null){
     axios({
       method: 'get',
       url: 'http://localhost:8080/mail/check',
@@ -60,7 +61,7 @@ export class App extends Component {
       .then(function () {
         // always executed
       }); 
-               }, 5000);
+     }}, 5000);
 
   render() {
     return(

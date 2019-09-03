@@ -18,3 +18,37 @@
     transform: scale(1.05);
 }
 
+#selectIco{
+    font-size: 60px;
+    color: #1A237E;
+    margin-top: 15px;
+    margin-left: 23.5px;
+}
+
+#userImage{
+    
+    object-fit: contain;    
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .imgPreview {
+   
+    font-weight: bold;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+

@@ -30,7 +30,7 @@ export class AccountCard extends Component {
               <Grid container>
               <Grid item>
                   <div style={this.media}>
-                    <i class="far fa-user-circle"></i>
+                    <i class="fas fa-portrait"></i>
                   </div>
                 </Grid>
                 <Grid item>
@@ -74,11 +74,14 @@ export class AccountCard extends Component {
              
                 
                 <Grid item style={{width:'15%'}} >
-                  <UpdateAccount displayname = {this.props.displayname} 
+                  <UpdateAccount 
+                                 id={this.props.id}
+                                 displayname = {this.props.displayname} 
                                  username = {this.props.username} 
                                  smtpPort = {this.props.smtpPort}
                                  smtpAddress= {this.props.smtpAddress}
                                  password = {this.props.password}
+                                 update={this.props.update}
                                  ></UpdateAccount>
                   <DeleteAccount acccount_id={this.props.id}></DeleteAccount>
                   

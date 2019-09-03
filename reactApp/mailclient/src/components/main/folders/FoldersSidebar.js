@@ -28,19 +28,19 @@ export class FoldersSidebar extends Component {
         for(let i = 0; i < this.props.folders.length; i++){
             let folder = this.props.folders[i];
             if(folder.name.toLowerCase() === 'inbox'){
-                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.inbox.name} messageCount= {folder.messageCount} folderColor={this.state.inbox.color} folderIco={this.state.inbox.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} active ></FolderItem></li>)
+                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.inbox.name} messageCount= {folder.messageCount} folderColor={this.state.inbox.color} folderIco={this.state.inbox.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} active filter={this.props.filter} ></FolderItem></li>)
 
             }else if(folder.name.toLowerCase() === 'outbox'){
-                this.state.components.push( <li><FolderItem key={i} folderName={this.state.outbox.name} messageCount= {folder.messageCount}  folderColor={this.state.outbox.color} folderIco={this.state.outbox.ico} messages={this.props.messages.bind(this)} update={this.update}></FolderItem></li>)
+                this.state.components.push( <li><FolderItem key={i} folderName={this.state.outbox.name} messageCount= {folder.messageCount}  folderColor={this.state.outbox.color} folderIco={this.state.outbox.ico} messages={this.props.messages.bind(this)} update={this.update} filter={this.props.filter}></FolderItem></li>)
 
             }else if(folder.name.toLowerCase() === 'spam'){
-                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.spam.name} messageCount={folder.messageCount}  folderColor={this.state.spam.color} folderIco={this.state.spam.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update}></FolderItem></li>)
+                this.state.components.push( <li><FolderItem  key={i} folderName={this.state.spam.name} messageCount={folder.messageCount}  folderColor={this.state.spam.color} folderIco={this.state.spam.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} filter={this.props.filter}></FolderItem></li>)
 
             }else if(folder.name.toLowerCase() === 'drafts'){
-                this.state.components.push( <li><FolderItem key={i} folderName={this.state.drafts.name} messageCount= {folder.messageCount}  folderColor={this.state.drafts.color} folderIco={this.state.drafts.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} ></FolderItem></li>)
+                this.state.components.push( <li><FolderItem key={i} folderName={this.state.drafts.name} messageCount= {folder.messageCount}  folderColor={this.state.drafts.color} folderIco={this.state.drafts.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} filter={this.props.filter}></FolderItem></li>)
 
             }else{
-                this.state.components.push( <li><FolderItem key={i} folderName={folder.name} messageCount= {folder.messageCount}  folderColor={this.state.custom.color} folderIco={this.state.custom.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} ></FolderItem></li>)
+                this.state.components.push( <li><FolderItem key={i} folderName={folder.name} messageCount= {folder.messageCount}  folderColor={this.state.custom.color} folderIco={this.state.custom.ico} id = {folder.id} messages={this.props.messages.bind(this)} update={this.update} filter={this.props.filter}></FolderItem></li>)
 
             }
 

@@ -12,10 +12,13 @@ export class FolderItem extends Component {
             folderName: '',
             messageCount: '',
             folderIco: '',
-            active: this.props.active          
+            active: this.props.active  ,
+            filter : ''
+              
         }
     }
 
+    
        
 
     componentDidMount = () =>{
@@ -29,7 +32,8 @@ export class FolderItem extends Component {
                     },
                     params: {
                         accountId : localStorage.getItem('account_id'),
-                        folderId: this.props.id
+                        folderId: this.props.id,
+                        filter: this.props.filter
                     }
                 }).then((response) => {
                     console.log(response.data)
@@ -51,7 +55,8 @@ export class FolderItem extends Component {
             },
             params: {
                 accountId : localStorage.getItem('account_id'),
-                folderId: this.props.id
+                folderId: this.props.id,
+                filter: ''
             }
         }).then((response) => {
             console.log(response.data)

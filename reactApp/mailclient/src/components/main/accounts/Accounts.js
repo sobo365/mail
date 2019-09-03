@@ -58,7 +58,9 @@ export class Accounts extends Component {
                                                                 smtpAddress={response.data[i].smtpAddress}
                                                                 smtpPort={response.data[i].smtpPort}
                                                                 password={response.data[i].password}
-                                                                username={response.data[i].username}></AccountCard>)
+                                                                username={response.data[i].username}
+                                                                update={this.update}
+                                                                ></AccountCard>)
             }
             this.state.accountComponents.push(<AddAcount update={this.update}></AddAcount>)
             this.forceUpdate()
