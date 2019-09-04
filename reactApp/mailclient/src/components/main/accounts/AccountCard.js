@@ -143,20 +143,31 @@ export class AccountCard extends Component {
       marginLeft: '15px'
     }
 
-
-
     cardStyle = {
-        color: '#fff',
-        background: this.props.color,
-        borderRadius: '30px',
-        marginLeft: '13%',
-        width: '70%',
-        height: '300px',
-        maxWidth: '70%',   
-        marginTop: '20px',
-        marginBottom: '70px',     
-         boxShadow: '   0px 4px 30px 2px ' + this.props.color,
-    }
+      color: '#fff',
+      background: this.props.background,
+      borderRadius: '30px',
+      marginLeft: '13%',
+      width: '70%',
+      height: '300px',
+      maxWidth: '70%',   
+      marginTop: '20px',
+      marginBottom: '70px',     
+       boxShadow: '   0px 2px 10px 2px ' + this.props.color
+  }
+
+    // cardStyle = {
+    //     color: '#fff',
+    //     background: 'linear-gradient(45deg, rgba(48,209,88,1) 30%, rgba(71,254,117,1) 90%)',
+    //     borderRadius: '30px',
+    //     marginLeft: '13%',
+    //     width: '70%',
+    //     height: '300px',
+    //     maxWidth: '70%',   
+    //     marginTop: '20px',
+    //     marginBottom: '70px',     
+    //      boxShadow: '   0px 2px 10px 2px ' + ' rgba(48,209,88,1) ',
+    // }
 
     
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SidebarLink from './SidebarLink'
+import Profile from '../../dialogs/ProfileDialog'
 
 export class SidebarFooter extends Component {
 
@@ -14,6 +15,8 @@ export class SidebarFooter extends Component {
         event.preventDefault();
     }
 
+   
+
     render() {
         return (
 
@@ -21,14 +24,16 @@ export class SidebarFooter extends Component {
             style = {this.sidebarFooter}>
                 {/* <hr style = {this.sidebarSeparator}></hr> */}
                
-               <ul style = {this.listItem} >
+               {/* <ul style = {this.listItem} >
                     <li
                         onClick = {this.logout}
                     ><SidebarLink 
                     icoName="fas fa-sign-out-alt" 
                     value = "Sign Out">
                     </SidebarLink></li>
-               </ul>
+               </ul> */}
+
+               <Profile></Profile>
 
             </div>
  

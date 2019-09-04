@@ -3,6 +3,12 @@ import Avatar from '@material-ui/core/Avatar';
 import EmailList from '../emails/EmailListPaper'
 import axios from 'axios';
 import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 export class ContactDisplay extends Component {
 
@@ -57,6 +63,7 @@ export class ContactDisplay extends Component {
                     <div style = {this.profileData}>
                         <p style={this.profileDataTitle}>{this.props.contact.displayname}</p>
                         
+                        
                     </div>
                 </div>
                         
@@ -78,7 +85,7 @@ export class ContactDisplay extends Component {
     profileDataTitle = {
         fontSize: '40px',
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: '#ff5722',
         margin: '0',
         fontFamily: 'Roboto ',
         letterSpacing: '2px'

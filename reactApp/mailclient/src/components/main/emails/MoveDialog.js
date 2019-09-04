@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import axios from 'axios';
 import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
 import ForwardIcon from '@material-ui/icons/Forward';
 
 export class MoveDialog extends Component {
@@ -126,7 +127,8 @@ export class MoveDialog extends Component {
                 fullWidth={true}
                 maxWidth = {'sm'}
                 onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.open}>
-                    <DialogTitle id="simple-dialog-title">Move to</DialogTitle>
+                    <DialogTitle style={{margin: 'auto'}} id="simple-dialog-title">Move to</DialogTitle>
+                    <Divider></Divider>
                     <List style={{fontSize: '20px', fontWeight: '500', color: '#616161'}}>
                         {this.renderList()}
                     </List>

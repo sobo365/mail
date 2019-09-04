@@ -151,7 +151,7 @@ export class Message extends Component {
                         <ListItemAvatar>
                             {/* <Avatar style={{background: '#6f32ff'}}> <i class="far fa-user"></i></Avatar> */}
                             
-                            <Avatar style={{background: '#6f32ff'}}>{this.props.message.from[0].toUpperCase()}</Avatar>
+                            <Avatar style={{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}}>{this.props.message.from[0].toUpperCase()}</Avatar>
                         </ListItemAvatar>
                         <ListItemText
                         

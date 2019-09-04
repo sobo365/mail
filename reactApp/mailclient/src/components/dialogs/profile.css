@@ -1,0 +1,56 @@
+.item{
+    width: 90%;
+    margin: auto;
+    height: 60px;
+    font-size: 23px;
+    background: #fff;
+    border-radius: 30px;
+    margin-top: 30px;
+    color: #424242;
+    margin-bottom: 3px;
+}
+
+.item:hover{
+    background: #BDBDBD;
+    
+}
+
+.close{
+    color: #ff453a;
+}
+
+.profileIcoWrapper{
+    margin: auto;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 7px solid white;
+}
+
+#profileIco{
+    color: white;
+    font-size: 80px;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+#profileBtn{
+    height: 60px;
+    width: 60px;
+    background: linear-gradient(45deg, rgba(152,152,157,1) 30%, rgba(189,195,186,1) 90%);
+    
+    border-radius: 15px;
+    margin-left: 15px;
+}
+
+#profileBtn:hover{
+    background: rgba(152,152,157,1);
+
+}
+
+#profileBtnIco{
+    color: white;
+    font-size: 30px;
+    margin-top: 15px;
+    margin-left: 0px;
+}

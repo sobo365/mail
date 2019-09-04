@@ -7,6 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import axios from 'axios'
+import Divider from '@material-ui/core/Divider';
 
 export class AccountSelectDialog extends Component {
 
@@ -67,7 +68,7 @@ export class AccountSelectDialog extends Component {
                       }}
                       key={i}>
                 <ListItemAvatar>
-                                <Avatar style={{background: '#ff9066'}} >
+                                <Avatar style={{background: 'linear-gradient(45deg, rgba(255,159,16,1) 30%, rgba(255,208,16,1) 90%)'}} >
                                 <i class="far fa-user"></i>
                             </Avatar>
                             </ListItemAvatar>
@@ -100,8 +101,15 @@ export class AccountSelectDialog extends Component {
                     onClick={this.handleToggle}
                     
                 /> */}
-                <Dialog onClose={this.handleToggle} aria-labelledby="simple-dialog-title" open={open}>
-                    <DialogTitle id="simple-dialog-title">Select Account</DialogTitle>
+                <Dialog 
+                    onClose={this.handleToggle} 
+                  
+                    maxWidth={'sm'}
+                    fullWidth={true}
+                    aria-labelledby="simple-dialog-title" 
+                    open={open}>
+                    <DialogTitle style={{margin:'auto'}} id="simple-dialog-title">Select Account</DialogTitle>
+                    <Divider></Divider>
                     <List>
                         {this.renderList()}
                     </List>
@@ -116,7 +124,7 @@ export class AccountSelectDialog extends Component {
         marginLeft: '22px',
         fontWeight: '900',
         fontSize: '30px',
-        color: '#ff9066',
+        color: 'rgba(255,159,16,1)',
         cursor: 'default'
     }    
 

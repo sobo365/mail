@@ -57,7 +57,7 @@ export class DeleteAccount extends Component {
             <Fragment>
               
                 <IconButton onClick={this.handleToggle}>
-                    <DeleteIcon fontSize="large" style={{color:'#EEEEEE'}}/>
+                    <DeleteIcon fontSize="large" style={{color:'#FFFFFF'}}/>
                   </IconButton>
                 <Dialog
                     open={open}

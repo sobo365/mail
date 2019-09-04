@@ -11,7 +11,7 @@
     border-radius: 40px 0px 0px 40px;
     position: fixed;
     transition: 0.5s;
-    background: #FC3158;
+    background:linear-gradient(45deg, rgba(255,69,58,1) 30%, rgba(255,118,95,1) 90%);
     color: white;
     box-shadow: 1px 5px 15px -4px rgba(0, 0, 0, 0.6);
     z-index: 30;

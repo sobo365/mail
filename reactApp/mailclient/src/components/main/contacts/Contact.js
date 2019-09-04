@@ -30,7 +30,7 @@ export class Contact extends Component {
             
                 <ListItem id = 'contact' button onClick={this.handleClick}>
                     <ListItemAvatar>
-                                <Avatar style={{background: '#6f32ff'}}> <i class="far fa-user"></i></Avatar>   
+                                <Avatar style={{background: 'linear-gradient(45deg, rgba(48,209,88,1) 30%, rgba(71,254,117,1) 90%)'}}> <i class="far fa-user"></i></Avatar>   
                     </ListItemAvatar>
 
                     <ListItemText

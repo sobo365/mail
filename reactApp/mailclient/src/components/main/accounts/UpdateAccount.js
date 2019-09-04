@@ -241,7 +241,7 @@ export class AccountDialog extends Component{
         <Fragment>
             
             <IconButton onClick={this.handleToggle}>
-                <CreateIcon fontSize="large" style={{color:'#EEEEEE'}}/>
+                <CreateIcon fontSize="large" style={{color:'#FFF'}}/>
             </IconButton>
 
             <Dialog 
@@ -367,6 +367,7 @@ export class AccountDialog extends Component{
       float: 'right',
       marginRight: '10px',
       marginTop: '0px',
+  
     }
 
     fabIcon = {
