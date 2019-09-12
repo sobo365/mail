@@ -22,10 +22,17 @@ export class Compose extends Component{
     });
 
     handleToggle = () => {
-           this.setState({
-               open: !this.state.open
-           }) 
+      if(!this.state.open && localStorage.getItem('account_id') == null){
+        alert('Please select account!');
+      }else{
+        this.setState({
+          open: !this.state.open
+      }) 
+      }
+          
     }
+
+    
 
     render(){
         
@@ -37,19 +44,6 @@ export class Compose extends Component{
         
         <Fragment>
 
-{/* <Tooltip 
-            style = {this.ttip}
-            title="Compose Email">
-                <Fab  
-                onClick={this.handleToggle}
-                style={this.fab}
-                color="secondary" 
-                aria-label="add" 
-                size = 'large'>
-                  <AddIcon />
-                </Fab>
-            </Tooltip> */}
-
             <div id = 'composeBtn'
             onClick={this.handleToggle}>
             <i id = 'composeBtnIco' class="fas fa-feather-alt"></i>
@@ -57,6 +51,11 @@ export class Compose extends Component{
             </div>
     
             <Dialog 
+                  PaperProps = {{
+                    style: {
+                        borderRadius: '20px'
+                      },
+                }}
                 style = {this.dialogStyle}
                 open={open} 
                 TransitionComponent={this.Transition}

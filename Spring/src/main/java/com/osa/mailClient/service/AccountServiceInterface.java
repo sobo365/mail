@@ -12,5 +12,5 @@ public interface AccountServiceInterface {
     List<Account> findAllByUser(User user);
     void remove(long account_id);
     Account findById(long id);
-
+    List<Account> findAll();
 }

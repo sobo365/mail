@@ -26,8 +26,7 @@ export class MoveDialog extends Component {
     
 
     handleOpen = () => {
-        this.props.closeDialog();
-        this.props.closeMenu();
+       
         this.setState({
             open: !this.state.open
         }) ;
@@ -65,6 +64,7 @@ export class MoveDialog extends Component {
     }
 
     handleSubmit = (folderId) => {
+        this.props.closeMenu();
         var token = localStorage.getItem('token');
         axios({
             method: 'post',
@@ -124,6 +124,11 @@ export class MoveDialog extends Component {
 
                
                 <Dialog 
+                 PaperProps = {{
+                    style: {
+                        borderRadius: '20px'
+                      },
+                }}
                 fullWidth={true}
                 maxWidth = {'sm'}
                 onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.open}>

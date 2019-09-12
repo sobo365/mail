@@ -28,8 +28,8 @@ public class ContactController {
     private ContactService contactService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addContact(@RequestBody Contact contact, @RequestParam("id") long userId, @RequestParam("photo")MultipartFile photo){
-        System.out.println(photo.isEmpty());
+    public ResponseEntity<?> addContact(@RequestBody Contact contact, @RequestParam("id") long userId, @RequestParam("photo")String photo){
+        System.out.println(photo);
 //        User user = userService.findById(userId);
 //        contact.setUserContact(user);
 //        contactService.save(contact);

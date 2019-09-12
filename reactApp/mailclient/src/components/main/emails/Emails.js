@@ -79,7 +79,7 @@ export class Emails extends Component {
                 <Sidebar emails></Sidebar> 
                 <Compose></Compose>
                 <div style={this.list}>
-                <EmailList searchBox menuAvailable={false} filter={this.getFilter.bind(this)} messages={this.state.messages}></EmailList>
+                <EmailList  searchBox menuAvailable={true} filter={this.getFilter.bind(this)} messages={this.state.messages}></EmailList>
                 </div>
                 
 

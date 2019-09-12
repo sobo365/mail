@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class Message implements Serializable {
     @Column(name = "subject", unique = false, nullable = false)
     private String subject;
 
-    @Column(name = "content", unique = false, nullable = false)
+    @Column(name = "content", unique = false, nullable = false, columnDefinition = "LONGTEXT")
     private String content;
 
     @Column(name = "_unread", unique = false, nullable = false)
@@ -46,8 +47,8 @@ public class Message implements Serializable {
     @OneToMany(mappedBy = "destination")
     private List<Rule> rules;
 
-    @OneToMany(mappedBy = "messageAttachment")
-    private List<Attachment> messageAttachments;
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "message")
+    private Set<Attachment> attachments;
 
     @ManyToOne
     @JoinColumn
@@ -57,8 +58,28 @@ public class Message implements Serializable {
     @JoinColumn
     private Account accountMessage;
 
-    @ManyToMany(mappedBy = "messagesTags")
-    private Set<Tag> tagsInMessages;
+    @ManyToMany(mappedBy = "messages")
+    private Set<Tag> tags;
+
+    public Message() {
+    }
+
+    public Message(String from, String to, String cc, String bcc, Timestamp dateTime, String subject, String content, boolean unread, boolean received, List<Rule> rules, Set<Attachment> attachments, Folder inFolder, Account accountMessage, Set<Tag> tagsInMessages) {
+        this.from = from;
+        this.to = to;
+        this.cc = cc;
+        this.bcc = bcc;
+        this.dateTime = dateTime;
+        this.subject = subject;
+        this.content = content;
+        this.unread = unread;
+        this.received = received;
+        this.rules = rules;
+        this.attachments = attachments;
+        this.inFolder = inFolder;
+        this.accountMessage = accountMessage;
+        this.tags = tagsInMessages;
+    }
 
     public long getId() {
         return id;
@@ -140,12 +161,12 @@ public class Message implements Serializable {
         this.rules = rules;
     }
 
-    public List<Attachment> getMessageAttachments() {
-        return messageAttachments;
+    public Set<Attachment> getAttachments() {
+        return attachments;
     }
 
-    public void setMessageAttachments(List<Attachment> messageAttachments) {
-        this.messageAttachments = messageAttachments;
+    public void setAttachments(Set<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public boolean isReceived() {
@@ -173,10 +194,10 @@ public class Message implements Serializable {
     }
 
     public Set<Tag> getTagsInMessages() {
-        return tagsInMessages;
+        return tags;
     }
 
     public void setTagsInMessages(Set<Tag> tagsInMessages) {
-        this.tagsInMessages = tagsInMessages;
+        this.tags = tagsInMessages;
     }
 }

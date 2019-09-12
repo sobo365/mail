@@ -39,7 +39,7 @@ public class User implements Serializable, UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Account> user;
 
-    @OneToMany(mappedBy = "userTag")
+    @OneToMany(mappedBy = "userTags")
     private List<Tag> userTags;
 
     public User() {

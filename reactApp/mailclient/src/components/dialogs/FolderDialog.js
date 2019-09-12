@@ -138,6 +138,11 @@ export class FolderDialog extends Component{
             </div>
 
             <Dialog 
+             PaperProps = {{
+              style: {
+                  borderRadius: '20px'
+                },
+          }}
                 style = {this.dialogStyle}
                 open={open} 
                 TransitionComponent={this.Transition}
@@ -145,7 +150,7 @@ export class FolderDialog extends Component{
                 maxWidth = {'md'}
                 aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">New Folder</DialogTitle>
-            <DialogContent>
+            <DialogContent style={{padding: '30px'}}>
 
   
 

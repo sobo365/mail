@@ -1,0 +1,23 @@
+#newTagTextField{
+    display: inline-block;
+}
+
+#newTagTextFieldHidden{
+    display: none;
+}
+
+#newTagSave{
+    display: inline-block;
+}
+
+#newTagSaveHidden{
+    display: none;
+}
+
+#newTagParagraph{
+    display: inline;
+}
+
+#newTagParagraphHidden{
+    display: none;
+}

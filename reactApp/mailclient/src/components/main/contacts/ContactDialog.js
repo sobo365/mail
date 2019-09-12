@@ -197,10 +197,10 @@ export class ContactDialog extends Component{
             },
             params: {
               id: localStorage.getItem('user_id'),
-              photo: formData
+              photo: window.btoa(this.state.imagePreviewUrl)
             },
             headers: {
-              'Content-Type' : 'multipart/form-data',
+              
               Authorization: 'Bearer ' + token
             }
           }).then((response) => {
@@ -230,11 +230,16 @@ export class ContactDialog extends Component{
           file: file,
           imagePreviewUrl: reader.result
         });
+        
       };
       
       reader.readAsDataURL(file);
+      
 
     }
+
+
+ 
 
     render(){
         
@@ -261,6 +266,11 @@ export class ContactDialog extends Component{
               
 
             <Dialog 
+             PaperProps = {{
+              style: {
+                  borderRadius: '20px'
+                },
+          }}
                 style = {this.dialogStyle}
                 open={open} 
                 TransitionComponent={this.Transition}
@@ -287,7 +297,7 @@ export class ContactDialog extends Component{
                Cancel
              </Button>
             </DialogTitle>
-            <DialogContent>
+            <DialogContent style={{padding: '30px'}}>
 
 
 
@@ -296,7 +306,6 @@ export class ContactDialog extends Component{
                 {$imagePreview}
               </div>
               <input 
-              type="file" 
               name="myfile"
               accept="image/*"
               id="contained-button-file"

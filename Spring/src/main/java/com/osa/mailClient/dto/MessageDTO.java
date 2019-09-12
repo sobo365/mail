@@ -1,11 +1,21 @@
 package com.osa.mailClient.dto;
 
+import com.osa.mailClient.entity.Attachment;
 import com.osa.mailClient.entity.Message;
+import com.osa.mailClient.service.AttachmentService;
+import com.osa.mailClient.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MessageDTO implements Serializable {
+
+
 
     private long id;
     private String from;
@@ -17,6 +27,9 @@ public class MessageDTO implements Serializable {
     private boolean unread;
     private Timestamp dateTime;
 
+
+
+
     public MessageDTO(Message message) {
         this.from = message.getFrom();
         this.to = message.getTo();
@@ -27,6 +40,9 @@ public class MessageDTO implements Serializable {
         this.unread = message.isUnread();
         this.dateTime = message.getDateTime();
         this.id = message.getId();
+
+
+
     }
 
     public String getFrom() {
@@ -100,4 +116,6 @@ public class MessageDTO implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
+
 }

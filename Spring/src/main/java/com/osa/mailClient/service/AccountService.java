@@ -35,4 +35,9 @@ public class AccountService implements AccountServiceInterface{
     public void remove(long account_id) {
         accountRepository.deleteById(account_id);
     }
+
+    @Override
+    public List<Account> findAll() {
+        return accountRepository.findAll();
+    }
 }

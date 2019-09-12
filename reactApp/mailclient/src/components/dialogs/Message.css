@@ -4,3 +4,76 @@
     transition: 0.5s;
 }
 
+#pdfItem{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 10px;
+    
+}
+
+#pdfItem:hover{
+    background: linear-gradient(45deg, rgba(152,152,157,1) 30%, rgba(189,195,186,1) 90%);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+#pdfItem:hover #pdfItemIco{
+    display: none;
+}
+
+#pdfItemDownload{
+    display: none;
+    font-size: 30px;
+    margin-top: 30px;
+    color: white;
+    font-weight: 500;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    padding-top: 50px;
+}
+
+#pdfItem:hover #pdfItemDownload{
+    display: inline-block;
+}
+
+#pdfItem:hover #pdfItemIcoText{
+    color: white;
+}
+
+#pdfItemIcoWrapper{
+    height: 70%;
+    width: 100%;
+}
+
+
+#pdfItemIco{
+    font-size: 130px;
+    margin-left: 50px;
+    color: rgba(152,152,157,1);
+}
+
+#pdfItemIcoDownload{
+    color: white;
+    font-size: 50px;
+}
+
+#pdfItemIcoText{
+    font-size: 15px;
+    color: #9E9E9E;
+    font-weight: 500;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    
+}
+
+#imgItem{
+    display: inline-block;
+}
+
+#popover{
+    padding: 30px;
+}

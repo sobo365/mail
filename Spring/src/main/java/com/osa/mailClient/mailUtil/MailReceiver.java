@@ -1,15 +1,21 @@
 package com.osa.mailClient.mailUtil;
 
 import com.osa.mailClient.entity.Account;
+import com.osa.mailClient.entity.Attachment;
 import com.osa.mailClient.service.AccountService;
 import com.osa.mailClient.service.FolderService;
 import com.osa.mailClient.service.MessageService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
@@ -59,29 +65,43 @@ public class MailReceiver {
                 String contetType = message.getContentType();
                 String messageContent = "";
 
+                String attachedFiles = "";
+                com.osa.mailClient.entity.Message entityMessage = new com.osa.mailClient.entity.Message();
+                entityMessage.setAttachments(new HashSet<>());
                 if(contetType.contains("multipart")){
                     Multipart multiPart = (Multipart) message.getContent();
                     int numberOfParts = multiPart.getCount();
                     for (int partCount = 0; partCount < numberOfParts; partCount++) {
                         MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+
+
+
                         if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
                             // this part is attachment
                             String fileName = part.getFileName();
-                            messageContent = fileName;
 
-//                            attachFiles += fileName + ", ";
-//                            part.saveFile("./data" + File.separator + fileName);
-//                            byte[] bFile = Files.readAllBytes(new File("./data/"+ fileName).toPath());
-//                            String sFile = Base64.encodeBase64String(bFile);
-//                            Attachment att = new Attachment();
-//                            att.setId(att.hashCode());
-//                            att.setName(fileName);
-//                            att.setData(sFile);
-//                            att.setType(".jpg");
-//                            modelMessage.getAttachments().add(att);
-//
-//                            File fl = new File("./data/"+ fileName);
-//                            fl.delete();
+
+                            messageContent += getTextFromMimeMultipart((MimeMultipart) multiPart);
+
+
+                            attachedFiles += fileName + ", ";
+                            part.saveFile("./data" + File.separator + fileName);
+                            byte[] bFile = Files.readAllBytes(new File("./data/"+ fileName).toPath());
+                            String sFile = Base64.encodeBase64String(bFile);
+                            Attachment att = new Attachment();
+                            att.setId(att.hashCode());
+                            att.setName(fileName);
+                            att.setData(sFile);
+                            att.setMessageAttachment(entityMessage);
+                            String type = part.getContentType();
+                            type = type.split(";")[0].toLowerCase();
+                            att.setMimeType(type);
+                            //messageContent += "type: " + type;
+                            entityMessage.getAttachments().add(att);
+
+
+                            File fl = new File("./data/"+ fileName);
+                            fl.delete();
 
 
                         } else {
@@ -94,7 +114,7 @@ public class MailReceiver {
 
                         }
                     }
-                    //modelMessage.setContent(messageContent.split(">")[1].split("<")[0]);
+                     //entityMessage.setContent(getTextFromMessage(message));
                     //System.out.println(getTextFromMessage(message));
 //                    modelMessage.setContent(getTextFromMessage(message));
 //                    if (attachFiles.length() > 1) {
@@ -115,7 +135,7 @@ public class MailReceiver {
                     from  = sb.toString().split("<")[1].split(">")[0];
                 }
 
-                com.osa.mailClient.entity.Message entityMessage = new com.osa.mailClient.entity.Message();
+
 
                 entityMessage.setContent(messageContent);
                 entityMessage.setFrom(from);

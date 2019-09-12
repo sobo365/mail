@@ -250,6 +250,11 @@ export class AccountDialog extends Component{
             </div>
 
             <Dialog 
+             PaperProps = {{
+              style: {
+                  borderRadius: '20px'
+                },
+          }}
                 style = {this.dialogStyle}
                 open={open} 
                 TransitionComponent={this.Transition}
@@ -277,7 +282,7 @@ export class AccountDialog extends Component{
              </Button>
 
             </DialogTitle>
-            <DialogContent>
+            <DialogContent style={{padding: '30px'}}>
 
   
 

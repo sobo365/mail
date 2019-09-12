@@ -60,6 +60,11 @@ export class DeleteAccount extends Component {
                     <DeleteIcon fontSize="large" style={{color:'#FFFFFF'}}/>
                   </IconButton>
                 <Dialog
+                 PaperProps = {{
+                    style: {
+                        borderRadius: '20px'
+                      },
+                }}
                     open={open}
                     onClose={this.handleToggle}
                     aria-labelledby="alert-dialog-title"

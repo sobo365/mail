@@ -54,3 +54,49 @@
     margin-top: 15px;
     margin-left: 0px;
 }
+
+#userDisplayName{
+    display: inline-block;
+    margin: auto;
+    color: white;
+    font-weight: 500;
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+#displaynameWrapper{
+    text-align: center;
+    margin: auto;
+}
+
+#backButton{
+    display: inline-block;
+    font-size: 40px;
+    color: #ff453a;
+}
+
+#changePasswordDialogContent{
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+}
+
+#dialogTitle{
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 40px;
+    text-align: center;
+    color: black;
+    font-size: 36px;
+    font-weight: 500;
+    width: 90%; 
+}
+
+#submitBtn{
+    background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);
+    width: 100%;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: white;
+}

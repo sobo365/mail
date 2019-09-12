@@ -103,7 +103,11 @@ export class AccountSelectDialog extends Component {
                 /> */}
                 <Dialog 
                     onClose={this.handleToggle} 
-                  
+                    PaperProps = {{
+                        style: {
+                            borderRadius: '20px'
+                          },
+                    }}
                     maxWidth={'sm'}
                     fullWidth={true}
                     aria-labelledby="simple-dialog-title" 

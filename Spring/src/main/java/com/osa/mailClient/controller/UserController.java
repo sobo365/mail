@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.io.IOException;
-
+import java.util.concurrent.locks.ReadWriteLock;
 
 
 @RestController
@@ -77,6 +77,24 @@ public class UserController {
 
         return ResponseEntity.ok(new ResponseMessageDTO(null));
 
+
+
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestParam("userId") long id, @RequestParam("newPassword") String newPassword){
+        User user = userService.findById(id);
+        System.out.println(newPassword);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user);
+        return ResponseEntity.ok(new ResponseMessageDTO(null));
+
+    }
+
+    @PostMapping("/updateProfileData")
+    public ResponseEntity<?> updateData(@RequestParam("userId") long userId, @RequestParam("username") String username, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
+
+        return null;
     }
 
 }
