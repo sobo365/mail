@@ -5,7 +5,9 @@ import com.osa.mailClient.dto.MessageDTO;
 import com.osa.mailClient.dto.ResponseMessageDTO;
 import com.osa.mailClient.dto.TagDTO;
 import com.osa.mailClient.entity.*;
+import com.osa.mailClient.helper.AttachmentsWrapper;
 import com.osa.mailClient.mailUtil.MailReceiver;
+import com.osa.mailClient.mailUtil.MailSender;
 import com.osa.mailClient.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.sql.Timestamp;
 import java.util.*;
 
 
@@ -27,6 +30,9 @@ public class MailController {
 
     @Autowired
     private MailReceiver mailReceiver;
+
+    @Autowired
+    private MailSender mailSender;
 
     @Autowired
     private AccountService accountService;
@@ -161,6 +167,40 @@ public class MailController {
         message.getTagsInMessages().add(tag);
         messageService.save(message);
         tagService.save(tag);
+        return new ResponseEntity<>(new ResponseMessageDTO(null), HttpStatus.OK);
+    }
+
+    @PostMapping("/sendMessage")
+    public ResponseEntity<?> sendMessage(@RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content, @RequestParam("cc") String cc, @RequestParam("bcc") String bcc, @RequestParam("accountId") long accountId, @RequestBody AttachmentsWrapper attachments){
+        Account account = accountService.findById(accountId);
+
+        Message message = new Message();
+        message.setAccountMessage(account);
+        message.setTo(to);
+        message.setFrom(account.getUsername());
+        message.setSubject(subject);
+        message.setContent(content);
+        message.setCc(cc);
+        message.setBcc(bcc);
+        message.setDateTime(new Timestamp(System.currentTimeMillis()));
+
+
+        mailSender.sendMail(message, account, attachments);
+
+        Folder outbox = folderService.findDefaultFolderByName("outbox", account.getId());
+        message.setInFolder(outbox);
+        message.setUnread(false);
+        message.setReceived(true);
+        messageService.save(message);
+
+        for(Attachment a : attachments.getAttachments()){
+            a.setMessageAttachment(message);
+            attachmentService.Save(a);
+        }
+
+
+
+
         return new ResponseEntity<>(new ResponseMessageDTO(null), HttpStatus.OK);
     }
 

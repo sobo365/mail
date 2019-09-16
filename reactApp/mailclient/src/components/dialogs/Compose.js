@@ -5,17 +5,22 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Fab from '@material-ui/core/Fab';
 import Slide from '@material-ui/core/Slide';
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
+import AttachmentItem from './AttachmentItem';
+
+import axios from 'axios'
+
 import './Dialogs.css'
+import { resolve } from 'q';
 
 export class Compose extends Component{
 
     state = {
-        open: false
+        open: false,
+        attachments: []
     }
+
+   
 
     Transition = React.forwardRef(function Transition(props, ref) {
       return <Slide direction="up" ref={ref} {...props} />;
@@ -26,13 +31,107 @@ export class Compose extends Component{
         alert('Please select account!');
       }else{
         this.setState({
-          open: !this.state.open
+          open: !this.state.open,
+          attachments: []
       }) 
       }
           
     }
 
+    sendMessage = () =>{
+      var token = localStorage.getItem('token');
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/mail/sendMessage',
+        params: {
+            to: 'sobota365@gmail.com',
+            subject: 'Hello',
+            content: 'Hello Hello Heloo',
+            cc: '',
+            bcc: '',
+            accountId: localStorage.getItem('account_id')
+            
+            
+        },
+        data: {
+            attachments: this.state.attachments        
+          
+
+        },
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then((response) => {
+        alert();
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    }
     
+    renderAttachments = () =>{
+      let components = []
+      console.log({attachments: this.state.attachments})
+    
+      for(let i = 0; i < this.state.attachments.length; i++){
+        components.push(<AttachmentItem  id = {i} removeItem={this.removeAttachment.bind(this)} file = {this.state.attachments[i]}></AttachmentItem>)
+      }
+
+      return components
+
+    }
+
+    removeAttachment = (id) =>{
+      this.state.attachments.splice(id, 1);
+      this.forceUpdate();
+    }
+
+    f2b = (file) =>{
+      return new Promise(resolve =>{
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          resolve(event.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      })
+    }
+
+    
+
+    attachmentHandle = event =>{
+      
+      
+      let file = event.target.files[0];
+      //  console.log(file);
+      // var reader;
+      // var string;
+      // if(file){
+      //   reader = new FileReader();
+
+      //   reader.onload =   readerEvent =>{
+      //     string = readerEvent.target.result;
+      //     console.log(btoa(string));
+      //     this.state.attachments.push({name: file.name, data: btoa(string), mimeType: file.type})
+      //     this.forceUpdate();
+      //   }
+      //   reader.readAsDataURL(file);
+      // }
+
+      this.f2b(file).then(result => {
+        console.log(result.split(',')[1])
+        this.state.attachments.push({name: file.name, data: result.split(',')[1], mimeType: file.type})
+        this.forceUpdate();
+      });
+      
+
+     
+    }
 
     render(){
         
@@ -101,11 +200,22 @@ export class Compose extends Component{
                 variant='outlined'
 
                 />
-
+                <div >
+                  {this.renderAttachments()}
+                  <div class = 'input-wrapper'>
+                  <div className="imgPreview">
+                    <i style={this.attIcon} class="fas fa-paperclip"></i>
+                    <p style={this.attachmentTitle}>Add </p>
+                  </div>
+                    <input type="file" name="file" onChange={this.attachmentHandle}/>
+                  </div>
+                  
+                </div>
+                
             </DialogContent>
             <DialogActions>
 
-          <div id = 'composeSendBtn'>
+          <div onClick={this.sendMessage} id = 'composeSendBtn'>
             <p id = 'composeSendText'>Send</p>
             <i id = 'composeSendIco' class="fas fa-chevron-right"></i>
           </div>
@@ -118,6 +228,21 @@ export class Compose extends Component{
         )
         
     }
+
+    attachmentTitle = {
+      display : 'inline-block',
+      margin: 0,
+      fontSize: '18px',
+      fontWeight: '500',
+      color: '#424242'
+  }
+
+  attIcon = {
+    display : 'inline-block',
+    fontSize: '22px',
+    marginRight: '12px',
+    color: '#424242'
+}
 
   
     btn = {

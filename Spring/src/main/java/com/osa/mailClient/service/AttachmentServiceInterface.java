@@ -10,4 +10,5 @@ import java.util.List;
 public interface AttachmentServiceInterface {
     List<Attachment> findAll();
     List<Attachment> findByMessage(Message messages);
+    void Save(Attachment attachment);
 }

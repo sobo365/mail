@@ -85,3 +85,29 @@
     50% {transform: scale(1.1); }
     100%{transform: scale(1);}
   }
+
+
+
+  /* Compose */
+
+  .input-wrapper {
+      margin-left: 5px;
+    margin-top: 25px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .imgPreview {
+   display: inline-block;
+    font-weight: bold;
+  
+  }
+  
+  .input-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }

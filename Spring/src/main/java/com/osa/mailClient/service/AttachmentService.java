@@ -23,4 +23,9 @@ public class AttachmentService implements AttachmentServiceInterface {
     public List<Attachment> findByMessage(Message message) {
         return attachmentRepository.findByMessage(message);
     }
+
+    @Override
+    public void Save(Attachment attachment) {
+        attachmentRepository.save(attachment);
+    }
 }

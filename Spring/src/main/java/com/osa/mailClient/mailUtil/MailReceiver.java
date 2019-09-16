@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Properties;
@@ -89,7 +88,6 @@ public class MailReceiver {
                             byte[] bFile = Files.readAllBytes(new File("./data/"+ fileName).toPath());
                             String sFile = Base64.encodeBase64String(bFile);
                             Attachment att = new Attachment();
-                            att.setId(att.hashCode());
                             att.setName(fileName);
                             att.setData(sFile);
                             att.setMessageAttachment(entityMessage);
@@ -114,12 +112,7 @@ public class MailReceiver {
 
                         }
                     }
-                     //entityMessage.setContent(getTextFromMessage(message));
-                    //System.out.println(getTextFromMessage(message));
-//                    modelMessage.setContent(getTextFromMessage(message));
-//                    if (attachFiles.length() > 1) {
-//                        attachFiles = attachFiles.substring(0, attachFiles.length() - 2);
-//                    }
+
 
                 }else{
 
