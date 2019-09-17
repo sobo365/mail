@@ -5,6 +5,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './email.css'
+import { AlertErrorOutline } from 'material-ui/svg-icons';
 
 export class EmailListPaper extends Component {
 
@@ -19,10 +20,11 @@ export class EmailListPaper extends Component {
         }
     }
 
+    component
     
 
     componentWillReceiveProps(){
-        document.getElementById("proggress").style.display = "none";
+        document.getElementById("progress").style.display = "none";
         this.state.br++;    
     }
 
@@ -32,13 +34,15 @@ export class EmailListPaper extends Component {
         }); 
     }
 
+    
+
 
     renderList = () =>{
         this.state.components = []
         
         for(let i = 0; i < this.props.messages.length; i++){
             let message = this.props.messages[i];
-            this.state.components.push(<Message key={i} message={message} update={this.props.update} menuAvailable={this.props.menuAvailable}></Message>)
+            this.state.components.push(<Message key={i} position = {i} retMessage={this.props.retMessage} message={message} update={this.props.update} menuAvailable={this.props.menuAvailable}></Message>)
         }
      
         if(this.state.components.length <= 0 && this.state.br > 1){
@@ -72,7 +76,7 @@ export class EmailListPaper extends Component {
         return (
             
             <div style={this.content}>
-            <LinearProgress id = 'proggress'></LinearProgress>
+            <LinearProgress id = 'progress'></LinearProgress>
             <div id = {this.props.searchBox ? 'searchBoxAvailable' : 'noSearchBox'}>
                 <div id = {this.state.searchField ? 'fullWidthSearchBox' : 'searchBox'}>
                 <i id = 'searchIco' class="fas fa-search"></i>

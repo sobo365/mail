@@ -65,6 +65,7 @@ export class MoveDialog extends Component {
 
     handleSubmit = (folderId) => {
         this.props.closeMenu();
+        
         var token = localStorage.getItem('token');
         axios({
             method: 'post',
@@ -78,8 +79,9 @@ export class MoveDialog extends Component {
               Authorization: 'Bearer ' + token
             }
           }).then((response) => {
+            this.props.retMessage(this.props.position);
               this.handleClose();
-              this.props.update();
+              
              
             })
             .catch(function (error) {

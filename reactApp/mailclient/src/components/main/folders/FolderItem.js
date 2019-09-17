@@ -37,7 +37,8 @@ export class FolderItem extends Component {
                     }
                 }).then((response) => {
                     console.log(response.data)
-                    this.props.messages(response.data)
+                    this.props.messages(response.data);
+                    this.props.currentFolder(this.props.id);
                 })
         }
     }
@@ -46,6 +47,7 @@ export class FolderItem extends Component {
 
     handleClick = () =>{
         this.props.update();
+        this.props.currentFolder(this.props.id);
         var token = localStorage.getItem('token');
         axios({
             method: 'GET',

@@ -39,8 +39,7 @@ public class TagController {
 
     @RequestMapping(value = "/deleteFromMessage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteFromMessage(@RequestParam("tagId") long tagId, @RequestParam("messageId") long messageId){
-        tagService.deleteMessageTag(tagId, messageId);
-        System.out.println("DELETE _-_-_-_-_-_-_-");
+        tagService.deleteMessageTag(messageId, tagId);
         return new ResponseEntity<>(new ResponseMessageDTO(null), HttpStatus.OK);
     }
 }

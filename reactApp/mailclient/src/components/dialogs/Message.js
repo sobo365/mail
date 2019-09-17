@@ -199,14 +199,14 @@ export class Message extends Component {
 
         for(let i = 0; i < this.state.tags.length; i++){
             components.push(
-                <Chip color="secondary" style={{margin: '5px'}} label={this.state.tags[i].name} onDelete={ () => {this.handleDeleteTag(this.state.tags[i].id)}} />
+                <Chip color="secondary" style={{margin: '5px'}} label={this.state.tags[i].name} onDelete={ () => {this.handleDeleteTag(this.state.tags[i].id, i)}} />
             )
         }
 
         return components
     }
 
-    handleDeleteTag = (tagIdVal) =>{
+    handleDeleteTag = (tagIdVal, position) =>{
         var token = localStorage.getItem('token');
     
         axios({
@@ -220,7 +220,8 @@ export class Message extends Component {
             Authorization: 'Bearer ' + token
           }
         }).then((response) => {
-            alert()
+            this.state.tags.splice(position, 1);
+          this.forceUpdate();
            
           })
           .catch(function (error) {
@@ -229,6 +230,8 @@ export class Message extends Component {
           .then(function () {
             // always executed
           }); 
+
+          
     }
 
    
@@ -254,7 +257,7 @@ export class Message extends Component {
                                    
                         >
 
-                            <Move closeMenu={this.closeMenu} update={this.props.update} message={this.props.message}></Move>
+                            <Move position={this.props.position} retMessage={this.props.retMessage.bind(this)} closeMenu={this.closeMenu} update={this.props.update} message={this.props.message}></Move>
                             <AddTag closeMenu={this.closeMenu} messageId = {this.props.message.id}></AddTag>
                             <MenuItem>
                             <DeleteIcon onClick={this.closeMenu} fontSize="medium" style={{color:'#616161', marginRight: '13px'}}/>

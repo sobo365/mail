@@ -14,7 +14,8 @@ export class Folders extends Component {
             username: '',
             folders: [],
             messages: [],
-            filter: ''
+            filter: '',
+            currentFolder: 0
         }
     }
 
@@ -57,15 +58,50 @@ export class Folders extends Component {
        
     }
 
+    getMessagesFiltered = (filterValue) =>{
+        var token = localStorage.getItem('token');
+          
+        axios({
+          method: 'get',
+          url: 'http://localhost:8080/mail/getByFolder',
+          params: {
+              accountId: localStorage.getItem('account_id'),
+              filter: filterValue,
+              folderId: this.state.currentFolder
+          },
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }).then((response) => {
+            console.log(response.data);
+            this.setState({
+              messages: response.data
+            })
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          }); 
+       }
+
     getFilter = (filterVal) => {
-        this.setState({
-            filter: filterVal
-        })
-        
-    
+        this.getMessagesFiltered(filterVal);
     }
 
-    
+    currentFolder = (folderId) => {
+        this.setState({
+            currentFolder: folderId
+        })
+    }
+
+    moveMessageRet = (messagePosition) =>{
+         this.state.messages.splice(messagePosition, 1);
+         this.forceUpdate();
+         //alert(messagePosition)
+      }
      
 
     render() {
@@ -75,10 +111,10 @@ export class Folders extends Component {
                 <Compose></Compose>
 
                 <div style={this.list}>
-                    <EmailList filter={this.getFilter.bind(this)} searchBox menuAvailable messages={this.state.messages}></EmailList>
+                    <EmailList retMessage={this.moveMessageRet.bind(this)} filter={this.getFilter.bind(this)} searchBox menuAvailable messages={this.state.messages}></EmailList>
                 </div>
                 
-                <FoldersSidebar filter={this.state.filter} messages = {this.getMessages.bind(this)}  updateFolders = {this.update} folders = {this.state.folders}></FoldersSidebar>             
+                <FoldersSidebar selectedFolder={this.state.currentFolder} currentFolder={this.currentFolder.bind(this)} filter={this.state.filter} messages = {this.getMessages.bind(this)}  updateFolders = {this.update} folders = {this.state.folders}></FoldersSidebar>             
 
                 
                 
