@@ -1,5 +1,6 @@
 #newTagTextField{
     display: inline-block;
+    width: 400px;
 }
 
 #newTagTextFieldHidden{
@@ -7,7 +8,13 @@
 }
 
 #newTagSave{
+    font-size: 25px;
+    margin-left: 15%;
     display: inline-block;
+}
+
+#newTagSave:hover{
+    color: #1A237E;
 }
 
 #newTagSaveHidden{

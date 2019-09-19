@@ -4,6 +4,7 @@ import com.osa.mailClient.dto.ResponseMessageDTO;
 import com.osa.mailClient.dto.TagDTO;
 import com.osa.mailClient.entity.Message;
 import com.osa.mailClient.entity.Tag;
+import com.osa.mailClient.entity.User;
 import com.osa.mailClient.service.MessageService;
 import com.osa.mailClient.service.TagService;
 import com.osa.mailClient.service.UserService;
@@ -24,9 +25,12 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private UserService userService;
 
-    @RequestMapping(value = "/getAccounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAccounts(){
+
+    @RequestMapping(value = "/getTags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTags(){
       //  User user = userService.findById(id);
         List<Tag> tags = tagService.findAll();
         List<TagDTO> dtos = new ArrayList<>();
@@ -35,6 +39,25 @@ public class TagController {
         }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value = "/newTag", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> newTag(@RequestParam("userId") long userId, @RequestParam("tagName") String tagName ){
+        User user = userService.findById(userId);
+        Tag tag = new Tag();
+        tag.setName(tagName);
+        tag.setUserTags(user);
+        tagService.save(tag);
+        ResponseEntity<?> re = getTags();
+        return re;
+    }
+
+    @RequestMapping(value = "/deleteTag", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteTag(@RequestParam("tagId") long tagId){
+        Tag tag = tagService.findOne(tagId);
+        tagService.Delete(tag);
+
+        return new ResponseEntity<>(new ResponseMessageDTO(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/deleteFromMessage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

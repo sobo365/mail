@@ -11,7 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import ForwardIcon from '@material-ui/icons/Forward';
 import LabelIcon from '@material-ui/icons/Label';
-import NewTag from './NewTag'
+import NewTag from './NewTag';
+import DeleteTag from './DeleteTag'
 
 export class TagDialog extends Component {
 
@@ -34,7 +35,7 @@ export class TagDialog extends Component {
         
         axios({
           method: 'GET',
-          url: 'http://localhost:8080/tag/getAccounts',
+          url: 'http://localhost:8080/tag/getTags',
           params: {
               id: localStorage.getItem('user_id')
           },
@@ -54,6 +55,34 @@ export class TagDialog extends Component {
             // always executed
           }); 
 
+    }
+
+    appendTag = tag =>{
+        var token = localStorage.getItem('token');
+
+        axios({
+            method: 'POST',
+            url: 'http://localhost:8080/tag/newTag',
+            params: {
+                userId: localStorage.getItem('user_id'),
+                tagName: tag
+            },
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          }).then((response) => {
+              this.setState({
+                  tags: response.data
+              }) ;
+              this.forceUpdate();
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+            .then(function () {
+              // always executed
+            }); 
+        
     }
 
     handleClose = () =>{
@@ -92,13 +121,20 @@ export class TagDialog extends Component {
           }); 
     }
 
+    removeFromList = (position) =>{
+        this.state.tags.splice(position, 1);
+        this.forceUpdate();
+    }
+
     renderList = () =>{
         this.state.components = []
 
         for(let i = 0; i < this.state.tags.length; i++){
            
             this.state.components.push(
+                <div>
                 <ListItem 
+                style={{width: '90%', margin: '0', display: 'inline-block'}}
                     button
                     onClick = {() =>{
                         this.setTag(this.state.tags[i].id)
@@ -107,13 +143,17 @@ export class TagDialog extends Component {
                     }
                     key={i}
                 >
-                    <ListItemAvatar>
+                    <ListItemAvatar style = {{ display: 'inline-block'}}>
                         <Avatar style={{background: '#fff', fontSize: '20px'}} >
                             <i style = {{color: '#616161',fontSize: '20px' }} class="fas fa-tag"></i>
                         </Avatar>
                     </ListItemAvatar>
-                    <p>{this.state.tags[i].name}</p>
+                    <p style={{display: 'inline-block'}}>{this.state.tags[i].name}</p>
+                    
+                    
                 </ListItem>
+                <DeleteTag position={i} update={this.removeFromList.bind(this)} tagId = {this.state.tags[i].id}></DeleteTag>
+                </div>
             );
         }
 
@@ -144,7 +184,7 @@ export class TagDialog extends Component {
                 <Divider></Divider>
                 <List style={{fontSize: '20px', fontWeight: '500', color: '#616161'}}>
                    {this.renderList()}
-                   {/* <NewTag></NewTag> */}
+                   <NewTag appendTag = {this.appendTag.bind(this)}></NewTag> 
                    
                 </List>
                 </Dialog>              

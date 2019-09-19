@@ -12,7 +12,8 @@ export class NewTag extends Component {
 
         this.state = {
             newTagParagraph: true,
-            newTagTextField: false
+            newTagTextField: false,
+            tagName: ''
         }
     }
 
@@ -22,6 +23,26 @@ export class NewTag extends Component {
             newTagTextField: true,
             
         })
+    }
+
+    saveTag = () =>{
+        if(this.state.tagName.trim() != ''){
+            this.props.appendTag(this.state.tagName);
+            this.setState({
+                newTagParagraph: true,
+                newTagTextField: false,
+                tagName: ''
+            })
+        }
+        
+        
+    }
+
+    hangeChangeTagName = event =>{
+        this.setState({
+            tagName: event.target.value
+        })
+        
     }
     
 
@@ -38,11 +59,12 @@ export class NewTag extends Component {
                         </Avatar>
                     </ListItemAvatar>
                     <TextField
+                        onChange={this.hangeChangeTagName}
+                        value={this.state.tagName}
                         id={this.state.newTagTextField? 'newTagTextField' : 'newTagTextFieldHidden'}
-                        label="Name"
-                        margin="normal"
+                        
                     />
-                    <i id={this.state.newTagTextField? 'newTagSave' : 'newTagSaveHidden'}
+                    <i onClick={this.saveTag} id={this.state.newTagTextField? 'newTagSave' : 'newTagSaveHidden'}
                       class="fas fa-save"></i>
 
                     <p id = {this.state.newTagParagraph ? 'newTagParagraph' : 'newTagParagraphHidden'}></p>

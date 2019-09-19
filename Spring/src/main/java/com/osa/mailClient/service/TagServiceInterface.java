@@ -12,4 +12,5 @@ public interface TagServiceInterface {
     Tag save(Tag tag);
     List<Tag> findByMessages(Message messagess);
     void deleteMessageTag(long messageId, long tagId);
+    void Delete(Tag tag);
 }

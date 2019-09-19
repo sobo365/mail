@@ -43,6 +43,11 @@ public class TagService implements TagServiceInterface {
     }
 
     @Override
+    public void Delete(Tag tag) {
+        tagRepository.delete(tag);
+    }
+
+    @Override
     @Transactional
     @Modifying
     public void deleteMessageTag(long messageId, long tagId) {

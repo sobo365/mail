@@ -257,8 +257,8 @@ export class Message extends Component {
                                    
                         >
 
-                            <Move position={this.props.position} retMessage={this.props.retMessage.bind(this)} closeMenu={this.closeMenu} update={this.props.update} message={this.props.message}></Move>
-                            <AddTag closeMenu={this.closeMenu} messageId = {this.props.message.id}></AddTag>
+                            <Move position={this.props.position} retMessage={this.props.retMessage} closeMenu={this.closeMenu} update={this.props.update} message={this.props.message}></Move>
+                            <AddTag  closeMenu={this.closeMenu} messageId = {this.props.message.id}></AddTag>
                             <MenuItem>
                             <DeleteIcon onClick={this.closeMenu} fontSize="medium" style={{color:'#616161', marginRight: '13px'}}/>
                             Delete</MenuItem>
