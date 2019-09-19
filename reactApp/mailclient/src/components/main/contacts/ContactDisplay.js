@@ -61,7 +61,10 @@ export class ContactDisplay extends Component {
                         <Avatar style={this.avatar}> <i class="far fa-user"></i></Avatar>   
                     </div> */}
                     <div style = {this.profileData}>
+                        <div style={this.profileDataTitleWrapper}>
                         <p style={this.profileDataTitle}>{this.props.contact.displayname}</p>
+                        </div>
+                        
                         
                         
                     </div>
@@ -80,6 +83,14 @@ export class ContactDisplay extends Component {
             
 
         )
+    }
+
+    profileDataTitleWrapper = {
+        margin: 'auto',
+        width: '300px',
+        height: '50px',
+        borderRadius: '20px',
+        background: 'linear-gradient(90deg, rgba(254,132,15,1) 0%, rgba(251,71,112,1) 100%)'
     }
 
     profileDataTitle = {
@@ -134,7 +145,7 @@ export class ContactDisplay extends Component {
         position: 'fixed',
         display: 'inline-block',
         width: '50%',
-        height: '35%',
+        height: '40%',
         marginTop: '55px',
         marginRight: '100px',
         borderRadius: '10px',

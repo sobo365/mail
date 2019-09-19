@@ -6,6 +6,8 @@
     margin-bottom: 10px;
     transition: 0.2s;
     height: 85px;
+    background: linear-gradient(90deg, rgba(254,132,15,1) 0%, rgba(251,71,112,1) 100%);
+    color: white;
     
 }
 

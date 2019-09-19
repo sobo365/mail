@@ -47,7 +47,7 @@ export class FolderItem extends Component {
 
     handleClick = () =>{
         this.props.update();
-        this.props.currentFolder(this.props.id);
+        this.props.currentFolder(this.props.id, this.props.folderName);
         var token = localStorage.getItem('token');
         axios({
             method: 'GET',
@@ -65,16 +65,14 @@ export class FolderItem extends Component {
             this.props.messages(response.data)
         })
 
-        this.setState({
-            active: true
-        })
+        
 
         
     }
 
     render() {
         return (
-            <div className = {this.state.active ? 'folderItemActive' : 'folderItem'}
+            <div className = 'folderItem'
                  onClick = {this.handleClick}>
                 <div id = 'folderItemIcoBackground' style={{background: this.props.folderColor}}>
                     <i id = 'folderItemIco' class={this.props.folderIco}></i>

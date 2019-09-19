@@ -167,8 +167,9 @@ export class ProfileDialog extends Component {
                     
                     PaperProps = {{
                         style: {
-                            background: 'transparent',
+                            background: '#FFFFFF',
                             boxShadow: 'none',
+                            borderRadius: '20px'
                           },
                     }}
                 >
@@ -196,6 +197,8 @@ export class ProfileDialog extends Component {
                             Change Password
                         </p>
                     </div>
+
+                    
 
                     <div class = 'item ' onClick={this.logout} >
                         <i style={this.itemIco} class="fas fa-sign-out-alt"></i>
@@ -367,7 +370,7 @@ export class ProfileDialog extends Component {
     itemIco = {
         display: 'inline-block',
         marginRight: '50px',
-        marginLeft: '20px',
+        marginLeft: '30px',
         marginTop: '15px'
     }
 

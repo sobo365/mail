@@ -1,10 +1,10 @@
 .item{
-    width: 90%;
+    width: 100%;
     margin: auto;
     height: 60px;
     font-size: 23px;
     background: #fff;
-    border-radius: 30px;
+    border-radius: 10px;
     margin-top: 30px;
     color: #424242;
     margin-bottom: 3px;
@@ -24,7 +24,8 @@
     height: 120px;
     width: 120px;
     border-radius: 50%;
-    border: 7px solid white;
+    background: linear-gradient(90deg, rgba(254,132,15,1) 0%, rgba(251,71,112,1) 100%);
+    /* border: 7px solid #424242; */
 }
 
 #profileIco{
@@ -37,14 +38,14 @@
 #profileBtn{
     height: 60px;
     width: 60px;
-    background: linear-gradient(45deg, rgba(152,152,157,1) 30%, rgba(189,195,186,1) 90%);
-    
+    background: linear-gradient(90deg, rgba(254,132,15,1) 0%, rgba(251,71,112,1) 100%);
     border-radius: 15px;
     margin-left: 15px;
+
 }
 
 #profileBtn:hover{
-    background: rgba(152,152,157,1);
+    background: linear-gradient(90deg,rgba(251,71,112,1) 0%, rgba(254,132,15,1) 100%);
 
 }
 
@@ -58,15 +59,16 @@
 #userDisplayName{
     display: inline-block;
     margin: auto;
-    color: white;
+    color: #424242;
     font-weight: 500;
     font-size: 40px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #displaynameWrapper{
     text-align: center;
     margin: auto;
+    margin-bottom: 20px;
 }
 
 #backButton{

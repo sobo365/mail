@@ -30,13 +30,13 @@ export class Contact extends Component {
             
                 <ListItem id = 'contact' button onClick={this.handleClick}>
                     <ListItemAvatar>
-                                <Avatar style={{background: 'linear-gradient(45deg, rgba(48,209,88,1) 30%, rgba(71,254,117,1) 90%)'}}> <i class="far fa-user"></i></Avatar>   
+                                <Avatar style={{background: 'transparent'}}> <i style={{fontSize: '30px'}} class="far fa-user"></i></Avatar>   
                     </ListItemAvatar>
 
                     <ListItemText
                         
                         primary={
-                            <Box  m={1} fontFamily='Roboto' fontWeight='500' fontSize='21px' color='#424242' style={{display: 'inline-block', margin: '0'}}>
+                            <Box  m={1} fontFamily='Roboto' fontWeight='500' fontSize='21px' color='#FFFFFF' style={{display: 'inline-block', margin: '0'}}>
                                    {this.props.firstname + ' ' + this.props.lastname} 
                             </Box>
                             
@@ -44,12 +44,12 @@ export class Contact extends Component {
                         secondary={
                             <Fragment>
                             <Typography
-                                style={{display: 'inline-block'}}
+                                style={{display: 'inline-block', color: '#FFFFFF'}}
                                 component="span"
                                 variant="body2"
                                 fontFamily='Roboto'
                                 fontWeight= '500'
-                                color="#757575" >
+                                color="#FFFFFF" >
                                 <Box  m={1}  style={{display: 'inline-block', margin: '0', fontSize: '16px'}}>
                                     {this.props.email}
                                 </Box>
