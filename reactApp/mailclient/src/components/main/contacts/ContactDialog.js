@@ -215,7 +215,7 @@ export class ContactDialog extends Component{
             // always executed
           }); 
 
-        }    
+         }    
       
     }
 

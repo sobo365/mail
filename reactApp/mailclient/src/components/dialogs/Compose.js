@@ -17,8 +17,17 @@ export class Compose extends Component{
 
     state = {
         open: false,
-        attachments: []
+        attachments: [],
+        subject: '',
+        to: '',
+        toErrorMessage: '',
+        toErrorValue: '',
+        content: '',
+        cc: '',
+        bcc: ''
     }
+
+
 
    
 
@@ -39,16 +48,17 @@ export class Compose extends Component{
     }
 
     sendMessage = () =>{
+
       var token = localStorage.getItem('token');
       axios({
         method: 'post',
         url: 'http://localhost:8080/mail/sendMessage',
         params: {
-            to: 'sobota365@gmail.com',
-            subject: 'Hello',
-            content: 'Hello Hello Heloo',
-            cc: '',
-            bcc: '',
+            to: this.state.to,
+            subject: this.state.subject,
+            content: this.state.content,
+            cc: this.state.cc,
+            bcc: this.state.bcc,
             accountId: localStorage.getItem('account_id')
             
             
@@ -133,6 +143,47 @@ export class Compose extends Component{
      
     }
 
+    handleChangeTo = event =>{
+      if(event.target.value != ''){
+        this.setState({
+          toErrorValue: false,
+          to: event.target.value,
+          toErrorText: ''
+        })
+      }else{
+        this.setState({
+          toErrorValue: true,
+          to: '',
+          toErrorText: 'Please enter address'
+        })
+      }
+      
+    }
+
+    handleChangeSubject = event =>{
+      this.setState({
+        subject: event.target.value
+      })
+    }
+
+    handleChangeCc = event =>{
+      this.setState({
+        cc: event.target.value
+      })
+    }
+
+    handleChangeBcc = event =>{
+      this.setState({
+        bcc: event.target.value
+      })
+    }
+
+    handleChangeContent = event =>{
+      this.setState({
+        content: event.target.value
+      })
+    }
+
     render(){
         
         const{open} = this.state
@@ -179,11 +230,41 @@ export class Compose extends Component{
                 style={this.form}
                 margin="normal"
                 variant='outlined'
+                value={this.state.to}
+                onChange={this.handleChangeTo}
+                error = {this.state.toErrorValue}
+                helperText={this.state.toErrorText}
               />
 
               <TextField
                 label="Subject"
                 style={this.form}
+                value={this.state.subject}
+                onChange={this.handleChangeSubject}
+                multiline
+                rowsMax="100"   
+                margin="normal"
+                variant='outlined'
+
+                />
+
+              <TextField
+                label="Cc"
+                style={this.form}
+                multiline
+                value={this.state.cc}
+                onChange={this.handleChangeCc}
+                rowsMax="100"   
+                margin="normal"
+                variant='outlined'
+
+                />
+
+              <TextField
+                label="Bcc"
+                style={this.form}
+                value={this.state.bcc}
+                onChange={this.handleChangeBcc}
                 multiline
                 rowsMax="100"   
                 margin="normal"
@@ -194,13 +275,15 @@ export class Compose extends Component{
               <TextField
                 label="Content"
                 style={this.form}
+                value={this.state.content}
+                onChange={this.handleChangeContent}
                 multiline
                 rowsMax="100"   
                 margin="normal"
                 variant='outlined'
 
                 />
-                <div >
+                <div style={{border: '1px solid #E0E0E0'}} >
                   {this.renderAttachments()}
                   <div class = 'input-wrapper'>
                   <div className="imgPreview">

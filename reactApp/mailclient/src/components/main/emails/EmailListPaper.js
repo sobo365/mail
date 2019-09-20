@@ -15,6 +15,9 @@ import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import axios from 'axios';
 
 
 export class EmailListPaper extends Component {
@@ -26,6 +29,10 @@ export class EmailListPaper extends Component {
         this.state = {
             components: [],
             messages: [],
+            tagFilteredMessages: new Set(),
+            activeTags: new Set(),
+            filterMessagesArray: [],
+            tags: [],
             br : 1,
             searchField: false,
             height: '100%',
@@ -42,15 +49,40 @@ export class EmailListPaper extends Component {
         }
     }
 
-    component
+    
     
 
     componentWillReceiveProps(){
         document.getElementById("progress").style.display = "none";
-        this.state.br++;    
+        this.state.br++;  
+        
+        var token = localStorage.getItem('token');
+        
+        axios({
+          method: 'GET',
+          url: 'http://localhost:8080/tag/getTags',
+          params: {
+              id: localStorage.getItem('user_id')
+          },
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }).then((response) => {
+            this.setState({
+                tags: response.data
+            }) ;
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          }); 
     }
 
     componentDidMount = () =>{
+        
         var height = window.innerHeight - 300;
         var heightS = height + 'px';
         this.setState({
@@ -67,7 +99,9 @@ export class EmailListPaper extends Component {
         
         for(let i = 0; i < this.props.messages.length; i++){
             let message = this.props.messages[i];
-            this.state.components.push(<Message key={i} position = {i} retMessage={this.props.retMessage} message={message} update={this.props.update} menuAvailable={this.props.menuAvailable}></Message>)
+            if(message.canDisplay){
+                this.state.components.push(<Message key={i} position = {i} retMessage={this.props.retMessage} message={message} update={this.props.update} menuAvailable={this.props.menuAvailable}></Message>)
+            }
         }
      
         if(this.state.components.length <= 0 && this.state.br > 1){
@@ -157,7 +191,59 @@ export class EmailListPaper extends Component {
         this.forceUpdate();
     }
 
+    renderTagList = () =>{
+        let components = []
+        
+        for(let i = 0; i < this.state.tags.length; i++){
+            let checkedValue = false;
+            if(this.state.activeTags.has(this.state.tags[i].name)){
+                checkedValue = true;
+            }
+            components.push(
+                <div style = {{ marginLeft: '20px', width: '90%'}}>
+                    <FormControlLabel
+                        control={
+                        <Checkbox checked={checkedValue} onChange={() =>{this.handleTagFilter(this.state.tags[i].name)}} />
+                        }
+                        label={this.state.tags[i].name}
+                    />
+                </div>
+
+                
+            )
+        }
+
+        return components;
+    }
     
+    handleTagFilter = (tagname) =>{
+        
+        if(this.state.activeTags.has(tagname)){
+            this.state.activeTags.delete(tagname);
+        }else{
+            this.state.activeTags.add(tagname);
+        }
+        
+        if(this.state.activeTags.size > 0){
+            for(let i = 0; i < this.props.messages.length; i++){
+                for(let j = 0; j < this.props.messages[i].tags.length; j++){
+                    if(this.state.activeTags.has(this.props.messages[i].tags[j].name)){
+                       this.props.messages[i].canDisplay = true;                       
+                    }else{
+                        this.props.messages[i].canDisplay = false;
+                    }
+                }
+            }
+        }else{
+            for(let i = 0; i < this.props.messages.length; i++){
+                this.props.messages[i].canDisplay = true;
+            }
+        }
+        
+        this.forceUpdate();
+
+        console.log(this.state.tagFilteredMessages)
+    }
 
     render() {
         return (
@@ -213,10 +299,8 @@ export class EmailListPaper extends Component {
                         >
                             <p style={{textAlign: 'center', fontWeight: '500'}} >Filter tags</p>
                             <Divider/>
-                            <MenuItem style={{width: '200px'}} >From</MenuItem>
-                            <MenuItem>Subject</MenuItem>
-                            <MenuItem>Date</MenuItem>
                             
+                            {this.renderTagList()}
 
                         </Menu>
                 </div>

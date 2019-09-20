@@ -65,19 +65,43 @@ public class MailController {
         List<MessageDTO> messgeDTOS = new ArrayList<>();
         if(filter.equals("") || filter == null){
             for(Message m : messages){
-
-                messgeDTOS.add(new MessageDTO(m));
+                List<Tag> tags  = tagService.findByMessages(m);
+                List<TagDTO> tagDtos = new ArrayList<>();
+                for(Tag t: tags){
+                    tagDtos.add(new TagDTO(t));
+                }
+                messgeDTOS.add(new MessageDTO(m,tagDtos));
             }
         }else{
             for(Message m : messages){
                 if(m.getContent().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getFrom().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getSubject().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getTo().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }
 
             }
@@ -94,18 +118,43 @@ public class MailController {
 
         if(filter.equals("") || filter == null){
             for(Message m : messages){
-                messgeDTOS.add(new MessageDTO(m));
+                List<Tag> tags  = tagService.findByMessages(m);
+                List<TagDTO> tagDtos = new ArrayList<>();
+                for(Tag t: tags){
+                    tagDtos.add(new TagDTO(t));
+                }
+                messgeDTOS.add(new MessageDTO(m,tagDtos));
             }
         }else{
             for(Message m : messages){
                 if(m.getContent().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getFrom().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getSubject().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }else if(m.getTo().toLowerCase().startsWith(filter.toLowerCase())){
-                    messgeDTOS.add(new MessageDTO(m));
+                    List<Tag> tags  = tagService.findByMessages(m);
+                    List<TagDTO> tagDtos = new ArrayList<>();
+                    for(Tag t: tags){
+                        tagDtos.add(new TagDTO(t));
+                    }
+                    messgeDTOS.add(new MessageDTO(m,tagDtos));
                 }
 
             }

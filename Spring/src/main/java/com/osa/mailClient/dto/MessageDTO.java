@@ -1,17 +1,14 @@
 package com.osa.mailClient.dto;
 
-import com.osa.mailClient.entity.Attachment;
 import com.osa.mailClient.entity.Message;
-import com.osa.mailClient.service.AttachmentService;
-import com.osa.mailClient.service.MessageService;
+import com.osa.mailClient.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 public class MessageDTO implements Serializable {
 
@@ -26,11 +23,12 @@ public class MessageDTO implements Serializable {
     private String content;
     private boolean unread;
     private Timestamp dateTime;
+    private List<TagDTO> tags;
+    private boolean canDisplay;
 
 
 
-
-    public MessageDTO(Message message) {
+    public MessageDTO(Message message, List<TagDTO> tagDTOS) {
         this.from = message.getFrom();
         this.to = message.getTo();
         this.bcc = message.getBcc();
@@ -40,8 +38,8 @@ public class MessageDTO implements Serializable {
         this.unread = message.isUnread();
         this.dateTime = message.getDateTime();
         this.id = message.getId();
-
-
+        this.tags = tagDTOS;
+        this.canDisplay = true;
 
     }
 
@@ -117,5 +115,19 @@ public class MessageDTO implements Serializable {
         this.id = id;
     }
 
+    public List<TagDTO> getTags() {
+        return tags;
+    }
 
+    public void setTags(List<TagDTO> tags) {
+        this.tags = tags;
+    }
+
+    public boolean isCanDisplay() {
+        return canDisplay;
+    }
+
+    public void setCanDisplay(boolean canDisplay) {
+        this.canDisplay = canDisplay;
+    }
 }

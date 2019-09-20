@@ -45,6 +45,7 @@ public class ContactController {
         User user = userService.findById(userId);
         contact.setUserContact(user);
 
+        System.out.println(photo.split(",")[0]);
 
         byte[] data = Base64.decodeBase64(photo);
         Photo p = new Photo();
