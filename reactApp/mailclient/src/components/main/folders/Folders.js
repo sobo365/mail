@@ -5,6 +5,7 @@ import axios from 'axios'
 import Compose from '../../dialogs/Compose';
 import EmailList from '../emails/EmailListPaper'
 import ChildFolder from './ChildFolder'
+import Rule from './Rule'
 
 export class Folders extends Component {
     constructor(props){
@@ -119,6 +120,7 @@ export class Folders extends Component {
                 <div style={this.list}>
                     <div style={this.folderBar}>
                         <p style={this.folderNameHeader}>{this.state.currentFolderName}</p>
+                        <Rule folderId={this.state.currentFolder}></Rule>
                     </div>
                     <EmailList retMessage={this.moveMessageRet.bind(this)} filter={this.getFilter.bind(this)} searchBox menuAvailable messages={this.state.messages}></EmailList>
                 </div>

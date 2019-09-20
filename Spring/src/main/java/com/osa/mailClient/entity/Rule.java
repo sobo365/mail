@@ -27,4 +27,46 @@ public class Rule implements Serializable {
     @JoinColumn
     private Folder destination;
 
+    public Rule() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public short getCondition() {
+        return condition;
+    }
+
+    public void setCondition(short condition) {
+        this.condition = condition;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public short getOperation() {
+        return operation;
+    }
+
+    public void setOperation(short operation) {
+        this.operation = operation;
+    }
+
+    public Folder getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Folder destination) {
+        this.destination = destination;
+    }
 }
