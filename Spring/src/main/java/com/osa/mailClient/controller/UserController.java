@@ -93,8 +93,12 @@ public class UserController {
 
     @PostMapping("/updateProfileData")
     public ResponseEntity<?> updateData(@RequestParam("userId") long userId, @RequestParam("username") String username, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
-
-        return null;
+        User user = userService.findById(userId);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setUsername(username);
+        userService.save(user);
+        return ResponseEntity.ok(new ResponseMessageDTO(null));
     }
 
 }

@@ -13,7 +13,7 @@ export class Contacts extends Component {
             username: '',
             contacts: [],
             contact: {
-                displayname: ''
+                
             }
         }
     }
@@ -39,7 +39,7 @@ export class Contacts extends Component {
             this.setState({
                 contacts: response.data
             })
-           
+           console.log(response.data)
           })
           .catch(function (error) {
             console.log(error);

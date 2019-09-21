@@ -14,7 +14,11 @@ export class Contact extends Component {
 
         this.state = {
             contact:{
-                displayname: this.props.displayname
+                displayname: this.props.displayname,
+                firstname: this.props.firstname,
+                lastname: this.props.lastname,
+                email: this.props.email,
+                note: this.props.note
             }
         }
     }

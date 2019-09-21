@@ -24,6 +24,7 @@ export class ContactsList extends Component {
                                         lastname = {contact.lastname}
                                         email = {contact.email}
                                         displayname = {contact.displayname}
+                                        note = {contact.note}
                                         getContact={this.props.getContact.bind(this)}
                                         ></Contact>)
         }
