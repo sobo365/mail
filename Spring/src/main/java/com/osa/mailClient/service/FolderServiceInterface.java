@@ -14,4 +14,5 @@ public interface FolderServiceInterface {
     Folder findById(long id);
     Folder save(Folder folder);
     Folder findDefaultFolderByName(String name, long accountId);
+    void delete(Folder folder);
 }

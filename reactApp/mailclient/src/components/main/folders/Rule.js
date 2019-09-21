@@ -62,6 +62,12 @@ export class Rule extends Component {
         })
   }
 
+  closeDialog = () =>{
+    this.setState({
+      open: false
+    })
+  }
+
   newRule = () =>{
     this.setState({
       newRuleOpen: true,
@@ -144,6 +150,24 @@ export class Rule extends Component {
         })
   }
 
+  applyRule = (id) =>{
+    var token = localStorage.getItem('token');
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:8080/rule/applyRule',
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        params: {
+            ruleId: id,
+            accountId: localStorage.getItem('account_id')
+        }
+    }).then((response) => {
+        alert()
+    })
+  }
+
   renderRules = () =>{
     let components = []
 
@@ -154,7 +178,7 @@ export class Rule extends Component {
                 <p style={this.ruleTextStyle}>Operation:  {this.state.rules[i].operation}</p>
                 <p style={this.ruleTextStyle}>Condition:  {this.state.rules[i].condition}</p>
                 <p style={this.ruleTextStyle}>Value:  {this.state.rules[i].value}</p>
-                <Button variant="contained"  style={this.ruleBtn}>
+                <Button variant="contained" onClick={() =>{this.applyRule(this.state.rules[i].id)}} style={this.ruleBtn}>
                         Apply
                 </Button>
                 <Button variant="contained" onClick={() =>{this.removeRule(i, this.state.rules[i].id)}}  style={this.ruleBtn}>
@@ -172,9 +196,11 @@ export class Rule extends Component {
         return (
             <Fragment>
             
-            <div onClick = {this.openDialog}>
-                <p style={{margin: '0'}}>Rules</p>
-            </div>
+            
+
+            <Button style={this.mainBtn} onClick = {this.openDialog} variant="outlined" >
+              Rules
+            </Button>
 
             <Dialog 
              PaperProps = {{
@@ -191,10 +217,14 @@ export class Rule extends Component {
             <DialogTitle style = {{color: '#1A237E'}} id="form-dialog-title">Rules
             
             
+            
             <IconButton onClick = {this.newRule} style={{float: 'right', color: '#1A237E'}} aria-label="delete">
               <AddBoxIcon fontSize="large" />
             </IconButton>
 
+            <IconButton onClick = {this.closeDialog} style={{float: 'right', color: '#1A237E'}} >
+              <CloseIcon fontSize="large" />
+            </IconButton>
                         
             </DialogTitle>
             <Divider></Divider>
@@ -299,6 +329,11 @@ export class Rule extends Component {
           </Dialog>
         </Fragment>
         )
+    }
+
+    mainBtn = {
+      float: 'right',
+      margin: '5px',
     }
 
     ruleIconStyle= {

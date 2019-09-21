@@ -6,6 +6,7 @@ import Compose from '../../dialogs/Compose';
 import EmailList from '../emails/EmailListPaper'
 import ChildFolder from './ChildFolder'
 import Rule from './Rule'
+import Button from '@material-ui/core/Button';
 
 export class Folders extends Component {
     constructor(props){
@@ -17,7 +18,8 @@ export class Folders extends Component {
             messages: [],
             filter: '',
             currentFolder: 0,
-            currentFolderName: 'Inbox'
+            currentFolderName: 'Inbox',
+            deleteBtn: false
         }
     }
 
@@ -57,6 +59,15 @@ export class Folders extends Component {
         this.setState({
             messages: messagesVal
         })
+        if(messagesVal.length == 0){
+            this.setState({
+                deleteBtn: false
+            })
+        }else{
+            this.setState({
+                deleteBtn: true
+            })
+        }
        
     }
 
@@ -109,6 +120,32 @@ export class Folders extends Component {
          this.forceUpdate();
          //alert(messagePosition)
       }
+
+      deleteFolder = () =>{
+        var token = localStorage.getItem('token');
+          
+        axios({
+          method: 'DELETE',
+          url: 'http://localhost:8080/folders/deleteFolder',
+          params: {
+              
+              folderId: this.state.currentFolder
+          },
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }).then((response) => {
+            alert()
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          }); 
+       
+      }
      
 
     render() {
@@ -120,6 +157,13 @@ export class Folders extends Component {
                 <div style={this.list}>
                     <div style={this.folderBar}>
                         <p style={this.folderNameHeader}>{this.state.currentFolderName}</p>
+                        
+                        <Button
+                        onClick={this.deleteFolder}
+                        disabled={this.state.deleteBtn}
+                        style={this.deleteFolderBtn} variant="outlined" color="secondary" >
+                            Delete Folder
+                        </Button>
                         <Rule folderId={this.state.currentFolder}></Rule>
                     </div>
                     <EmailList retMessage={this.moveMessageRet.bind(this)} filter={this.getFilter.bind(this)} searchBox menuAvailable messages={this.state.messages}></EmailList>
@@ -133,9 +177,13 @@ export class Folders extends Component {
         )
     }
 
+    deleteFolderBtn={
+        float: 'right',
+        margin: '5px',
+    }
+
     folderNameHeader = {
         fontWeight: '600',
-        color: '#3b3462',
         display: 'inline-block',
         float :'left',
         margin: '0',
@@ -147,7 +195,6 @@ export class Folders extends Component {
     folderBar = {
         height: '40px',
         width: '100%',
-        background: '#EEEEEE'
     }
 
     childFolder = {

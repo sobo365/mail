@@ -39,4 +39,9 @@ public class FolderService implements FolderServiceInterface {
     public Folder findById(long id) {
         return folderRepository.getOne(id);
     }
+
+    @Override
+    public void delete(Folder folder) {
+        folderRepository.delete(folder);
+    }
 }

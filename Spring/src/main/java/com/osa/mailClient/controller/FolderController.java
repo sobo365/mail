@@ -61,4 +61,12 @@ public class FolderController {
         return ResponseEntity.ok(new ResponseMessageDTO(null));
     }
 
+    @DeleteMapping("/deleteFolder")
+    public ResponseEntity<?> deleteFolder(@RequestParam("folderId") long folderId){
+        System.out.println("+++++++++");
+        Folder folder = folderService.findById(folderId);
+        folderService.delete(folder);
+        return ResponseEntity.ok(new ResponseMessageDTO(null));
+    }
+
 }

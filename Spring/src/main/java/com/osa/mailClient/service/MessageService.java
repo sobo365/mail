@@ -47,4 +47,9 @@ public class MessageService implements MessageServiceInterface {
     public int countMessagesInFolder(long folderId) {
         return messageRepository.countMessagesInFolder(folderId);
     }
+
+    @Override
+    public void delete(Message message) {
+        messageRepository.delete(message);
+    }
 }
