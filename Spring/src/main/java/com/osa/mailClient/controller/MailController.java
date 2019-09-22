@@ -166,7 +166,7 @@ public class MailController {
     public ResponseEntity<ResponseMessageDTO> newMailCheck(@RequestParam("id") int id){
         Account acc = accountService.findById(1);
 
-        mailReceiver.checkMail("pop.gmail.com", "pop3", "testpmsu@gmail.com", "TestPMSU1", acc);
+        mailReceiver.checkMail("pop.gmail.com", "pop3", acc.getUsername(), acc.getPassword(), acc);
 
 
         List<Message> messages = messageService.findByAccountId(id);
@@ -251,6 +251,22 @@ public class MailController {
 
 
         return new ResponseEntity<>(new ResponseMessageDTO(null), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getForContact", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MessageDTO>> contactMessages(@RequestParam("accountId") long accountId, @RequestParam("address") String address){
+        Account acc = accountService.findById(1);
+        List<Message> messages = messageService.messageForContact(accountId, address);
+        List<TagDTO> blank = new ArrayList<>();
+
+        List<MessageDTO> messgeDTOS = new ArrayList<>();
+            for(Message m : messages){
+
+                messgeDTOS.add(new MessageDTO(m, blank));
+            }
+
+
+        return new ResponseEntity<>(messgeDTOS, HttpStatus.OK);
     }
 
 

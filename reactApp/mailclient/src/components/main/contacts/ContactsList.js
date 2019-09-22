@@ -20,11 +20,14 @@ export class ContactsList extends Component {
             let contact = this.props.contacts[i];
             this.state.components.push(<Contact
                                         key = {i}
+                                        position = {i}
+                                        id = {contact.id}
                                         firstname = {contact.firstname}
                                         lastname = {contact.lastname}
                                         email = {contact.email}
                                         displayname = {contact.displayname}
                                         note = {contact.note}
+                                        photo = {contact.photo.data}
                                         getContact={this.props.getContact.bind(this)}
                                         ></Contact>)
         }
@@ -46,7 +49,7 @@ export class ContactsList extends Component {
                 <List style={{overflowY: 'hidden'}} component="nav" aria-label="main mailbox folders">
                     <div style={{display: 'inline-block', height: '10px'}}></div>
                     {this.renderList()}    
-                    <AddContact update={this.update}></AddContact>    
+                    <AddContact retContact={this.props.retContact} update={this.update}></AddContact>    
                     <div style={{display: 'inline-block', height: '30px'}}></div> 
                 </List>
                    

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ListItemText from '@material-ui/core/ListItemText';
 import './contact.css'
+import axios from 'axios'
 
 export class Contact extends Component {
 
@@ -18,13 +19,35 @@ export class Contact extends Component {
                 firstname: this.props.firstname,
                 lastname: this.props.lastname,
                 email: this.props.email,
-                note: this.props.note
+                note: this.props.note,
+                photo: this.props.photo,
+                id: this.props.id
             }
         }
     }
 
     handleClick = () =>{
-        this.props.getContact(this.state.contact);
+
+        var token = localStorage.getItem('token');
+        axios({
+            method: 'GET',
+            url: 'http://localhost:8080/mail/getForContact',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            params: {
+                accountId : localStorage.getItem('account_id'),
+                address : this.props.email
+            }
+        }).then((response) => {
+            this.props.getContact(this.state.contact, response.data);
+        })
+
+        this.setState({
+            active: true
+        })
+
+        // this.props.getContact(this.state.contact);
     }
 
     
@@ -34,7 +57,11 @@ export class Contact extends Component {
             
                 <ListItem id = 'contact' button onClick={this.handleClick}>
                     <ListItemAvatar>
-                                <Avatar style={{background: 'transparent'}}> <i style={{fontSize: '30px'}} class="far fa-user"></i></Avatar>   
+                                <Avatar style={{background: 'transparent'}}> 
+
+                                <i style={{fontSize: '30px'}} class="far fa-user"></i> 
+                                
+                                </Avatar>   
                     </ListItemAvatar>
 
                     <ListItemText

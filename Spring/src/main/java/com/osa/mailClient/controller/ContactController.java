@@ -1,6 +1,7 @@
 package com.osa.mailClient.controller;
 
 import com.osa.mailClient.dto.ContactDTO;
+import com.osa.mailClient.dto.PhotoDTO;
 import com.osa.mailClient.dto.ResponseMessageDTO;
 import com.osa.mailClient.entity.Contact;
 import com.osa.mailClient.entity.Photo;
@@ -45,24 +46,17 @@ public class ContactController {
         User user = userService.findById(userId);
         contact.setUserContact(user);
 
-        System.out.println(photo.split(",")[0]);
 
-        byte[] data = Base64.decodeBase64(photo);
+
         Photo p = new Photo();
-        try{
-            String filename = "./data/userPhotos/" + user.getUsername() + contact.getDisplayname();
-            OutputStream stream = new FileOutputStream(filename);
-            stream.write(data);
+
             p.setContactPhoto(contact);
-            p.setPath(filename);
+            p.setPath(photo);
             photoService.save(p);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
         contactService.save(contact);
-        return ResponseEntity.ok(new ResponseMessageDTO(null));
+        return ResponseEntity.ok(new ContactDTO(contact, new PhotoDTO(p)));
     }
 
     @RequestMapping(value = "/getContacts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,9 +65,24 @@ public class ContactController {
         List<Contact> contacts = contactService.findAllByuserContact(user);
         List<ContactDTO> contactsDTO = new ArrayList<>();
         for (Contact contact : contacts) {
-            contactsDTO.add(new ContactDTO(contact));
+            Photo p = photoService.getByContact(contact);
+            PhotoDTO pdto = new PhotoDTO(new Photo());
+            if(p != null){
+                pdto.setData(p.getPath());
+                pdto.setId(p.getId());
+            }
+
+
+            contactsDTO.add(new ContactDTO(contact, pdto));
         }
         return new ResponseEntity<>(contactsDTO, HttpStatus.OK);
 
+    }
+
+    @DeleteMapping("/deleteContact")
+    public ResponseEntity<?> deleteContact(@RequestParam("contactId") long contactId){
+        Contact c = contactService.getOne(contactId);
+        contactService.delete(c);
+        return ResponseEntity.ok(new ResponseMessageDTO(null));
     }
 }

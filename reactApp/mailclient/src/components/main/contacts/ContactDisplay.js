@@ -12,8 +12,9 @@ import Divider from '@material-ui/core/Divider';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
-import ComposeFC from './ComposeForContact'
-
+import ComposeFC from './ComposeForContact';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export class ContactDisplay extends Component {
 
@@ -27,62 +28,23 @@ export class ContactDisplay extends Component {
         }
     }
 
-    componentDidMount() {
-
-        if(localStorage.getItem('token') == null){
-            this.props.history.push('/login');
-        }
-        this.state.username = localStorage.getItem('username');
-
-        var token = localStorage.getItem('token');
-        axios({
-            method: 'GET',
-            url: 'http://localhost:8080/mail/getByFolder',
-            headers: {
-                Authorization: 'Bearer ' + token
-            },
-            params: {
-                accountId : localStorage.getItem('account_id'),
-                folderId: 1
-            }
-        }).then((response) => {
-            this.setState({
-                messages: response.data
-            })
-        })
-
-        this.setState({
-            active: true
-        })
-
-     }
+    deleteContact = () =>{
+        this.props.deleteContact(this.props.contact.id, this.props.contact.position);
+        this.forceUpdate();
+    }
 
     render() {
         return (
             <div>
                 <div style = {this.display}>
-                    
-                {/* <div style={this.profilePhoto}>
-                        <Avatar style={this.avatar}> <i class="far fa-user"></i></Avatar>   
-                    </div> */}
-                    {/* <div style = {this.profileData}>
-                        <div style={this.profileDataTitleWrapper}>
-                        <p style={this.profileDataTitle}>@{this.props.contact.displayname}</p>
-                        <p style={this.profileDataTitle}>First Name: {this.props.contact.firstname}</p>
-                        <p style={this.profileDataTitle}>Last Name: {this.props.contact.lastname}</p>
-                        <p style={this.profileDataTitle}>Email: {this.props.contact.email}</p>
-                        <p style={this.profileDataTitle}>Note: {this.props.contact.note}</p>
-                        </div>
-                        
-                        
-                        
-                    </div> */}
+                
 
                     <ul style={{margin: '0px'}}>
                         <li style={this.liItem} >
                             <div style={this.liWrapper}>
                                 <p style={this.liHeader}>First Name</p>
                                 <p style={this.liData}>{this.props.contact.firstname}</p>
+
                             </div>
                         </li>
                         <li style={this.liItem} >
@@ -103,7 +65,15 @@ export class ContactDisplay extends Component {
                                 <p style={this.liData}>{this.props.contact.email}</p>
                             </div>
                         </li>
+                        <li style={this.liItem} >
+                            <div style={this.liWrapper}>
+                            <IconButton onClick={this.deleteContact}>
+                                <DeleteIcon fontSize="large" style={{color:'#FFFFFF'}}/>
+                            </IconButton>
+                            </div>
+                        </li>
                     </ul>  
+                    
                     
                     </div>
                 <div style={this.contactAttachment}>
@@ -150,6 +120,9 @@ export class ContactDisplay extends Component {
                     </ul>  
                 </div>
                 
+                <div style={this.contactPhotoWrapper}>
+                <img style={{borderRadius: '50%'}} width='150' height= '150' src={this.props.contact.photo} alt="No photo" />
+                </div>
                         
                 
                 <div style = {this.displayMessages}>
@@ -157,7 +130,7 @@ export class ContactDisplay extends Component {
                         <div style={this.messageHeader}>
                             <p style={this.messageTitle}>Messages</p>
                         </div>
-                        <EmailList menuAvailable={false} messages={this.state.messages}></EmailList>
+                        <EmailList menuAvailable={false} messages={this.props.messages}></EmailList>
                     </div>
                 </div>
             </div>
@@ -166,12 +139,27 @@ export class ContactDisplay extends Component {
         )
     }
 
+    contactPhotoWrapper = {
+        position: 'fixed',
+        display: 'inline-block',
+        width: '150px',
+        height: '150px',
+        marginTop: '15px',
+        right: '0',
+        marginRight: '25%',
+        zIndex: '10',
+        borderRadius: '50%',
+        background: 'rgba(254,132,15,1)',
+        boxShadow: '0px 0px 15px 0px rgba(0,0,0,0.5)'
+
+    }
+
     contactAttachment = {
         position: 'fixed',
         display: 'inline-block',
         width: '20%',
         height: '11%',
-        marginTop: '150px',
+        marginTop: '250px',
         marginRight: '20%',
         borderRadius: '20px',
         right: '0',
@@ -196,7 +184,7 @@ export class ContactDisplay extends Component {
 
     liWrapper = {
         display: 'inline-block', 
-        width: '23%'
+        width: '20%'
 
     }
 
@@ -246,9 +234,9 @@ export class ContactDisplay extends Component {
     messageHeader = {
         width: '100%',
         height: '15%',
-        background: '#E0E0E0',
+        background: 'linear-gradient(90deg, rgba(254,132,15,1) 0%, rgba(251,71,112,1) 100%)',
         fontWeight: '500',
-        color: '#1A237E',
+        color: '#FFF',
         fontSize: '21px',
         
     }
@@ -281,7 +269,7 @@ export class ContactDisplay extends Component {
         width: '50%',
         height: '11%',
         padding: '20px',
-        marginTop: '55px',
+        marginTop: '155px',
         marginRight: '100px',
         borderRadius: '20px',
         right: '0',

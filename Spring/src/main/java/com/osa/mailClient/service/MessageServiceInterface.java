@@ -16,6 +16,7 @@ public interface MessageServiceInterface {
     List<Message> findAllByAccountIdFolder(long accountId, long folderId);
     int countMessagesInFolder(long folderId);
     void delete(Message message);
+    List<Message> messageForContact(long accountId, String address);
 
 
 }

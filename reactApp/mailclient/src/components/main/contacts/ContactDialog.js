@@ -38,7 +38,8 @@ export class ContactDialog extends Component{
         noteErrorMessage: '',
 
         file: "", 
-        imagePreviewUrl: "" 
+        imagePreviewUrl: "" ,
+        blob: ''
     }
 
     Transition = React.forwardRef(function Transition(props, ref) {
@@ -183,6 +184,15 @@ export class ContactDialog extends Component{
         var formData = new FormData();
         formData.append('photo', 'ok');
 
+        this.f2b(this.state.file).then(result => {
+        
+          
+        
+
+        console.log("................")
+        console.log(this.state.blob)
+      
+
         var token = localStorage.getItem('token');
           axios({
             method: 'post',
@@ -197,7 +207,7 @@ export class ContactDialog extends Component{
             },
             params: {
               id: localStorage.getItem('user_id'),
-              photo: window.btoa(this.state.imagePreviewUrl)
+              photo: result
             },
             headers: {
               
@@ -205,7 +215,7 @@ export class ContactDialog extends Component{
             }
           }).then((response) => {
             this.handleToggle(); 
-            this.props.update();
+            this.props.retContact(response.data);
                     
           })
           .catch(function (error) {
@@ -215,9 +225,31 @@ export class ContactDialog extends Component{
             // always executed
           }); 
 
+        });
          }    
+        
+         
+    }
+
+    f2b = (file) =>{
+      if(typeof file == 'object'){
+        return new Promise(resolve =>{
+          var reader = new FileReader();
+  
+          reader.onload = function(event) {
+            resolve(event.target.result);
+          };
+  
+          reader.readAsDataURL(file);
+        })
+      }else{
+        return new Promise(resolve =>{
+          resolve('');
+        })
+      }
       
     }
+
 
     handleImageChange(e) {
       e.preventDefault();

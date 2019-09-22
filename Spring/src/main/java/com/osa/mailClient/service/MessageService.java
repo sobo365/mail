@@ -52,4 +52,9 @@ public class MessageService implements MessageServiceInterface {
     public void delete(Message message) {
         messageRepository.delete(message);
     }
+
+    @Override
+    public List<Message> messageForContact(long accountId, String address) {
+        return messageRepository.findForContact(accountId, address);
+    }
 }

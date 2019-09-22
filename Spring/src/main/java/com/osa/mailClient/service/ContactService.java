@@ -24,4 +24,14 @@ public class ContactService implements ContactServiceInterface {
     public Contact save(Contact contact) {
         return contactRepository.save(contact);
     }
+
+    @Override
+    public void delete(Contact contact) {
+        contactRepository.delete(contact);
+    }
+
+    @Override
+    public Contact getOne(long id) {
+        return contactRepository.getOne(id);
+    }
 }

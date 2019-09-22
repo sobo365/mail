@@ -4,6 +4,7 @@ import Compose from '../../dialogs/Compose';
 import axios from 'axios';
 import ContactList from './ContactsList'
 import ContactDisplay from './ContactDisplay'
+import contacts from 'material-ui/svg-icons/communication/contacts';
 
 export class Contacts extends Component {
     constructor(props){
@@ -12,6 +13,7 @@ export class Contacts extends Component {
         this.state = {
             username: '',
             contacts: [],
+            contactMessages : [],
             contact: {
                 
             }
@@ -49,15 +51,43 @@ export class Contacts extends Component {
           }); 
      }
 
-     getContact = (contactVal) => {
+     getContact = (contactVal, messages) => {
+         
         this.setState({
             contact: contactVal
+        })
+        this.setState({
+            contactMessages: messages
+        })
+        this.forceUpdate();
+    }
+
+
+    retContact = (contact) => {
+        
+        this.state.contacts.push(contact);
+        
+        this.forceUpdate();
+    }
+
+    deleteContact = (contactId, position) =>{
+        var token = localStorage.getItem('token');
+        axios({
+            method: 'DELETE',
+            url: 'http://localhost:8080/contact/deleteContact',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            params: {
+                contactId: contactId
+            }
+        }).then((response) => {
+            this.state.contacts.splice(position, 1);
+            this.forceUpdate();
         })
 
         
     }
-
-     
      
 
     render() {
@@ -66,9 +96,9 @@ export class Contacts extends Component {
                 <Sidebar contacts></Sidebar> 
                 <Compose></Compose>
 
-                <ContactList getContact={this.getContact.bind(this)} update={this.componentDidMount} style = {this.list} contacts={this.state.contacts}></ContactList>      
+                <ContactList retContact = {this.retContact.bind(this)} getContact={this.getContact.bind(this)} update={this.componentDidMount} style = {this.list} contacts={this.state.contacts}></ContactList>      
 
-                <ContactDisplay contact = {this.state.contact}></ContactDisplay>      
+                <ContactDisplay deleteContact = {this.deleteContact.bind(this)} messages={this.state.contactMessages} contact = {this.state.contact}></ContactDisplay>      
                 
                 
             </div>

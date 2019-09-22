@@ -12,7 +12,7 @@ public class Photo implements Serializable {
     @Column(name = "photo_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "path", unique = false, nullable = false)
+    @Column(name = "path", unique = false, nullable = false,  columnDefinition = "LONGTEXT")
     private String path;
 
     @ManyToOne(cascade = CascadeType.ALL)
