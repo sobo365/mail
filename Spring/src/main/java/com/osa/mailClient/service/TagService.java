@@ -2,6 +2,7 @@ package com.osa.mailClient.service;
 
 import com.osa.mailClient.entity.Message;
 import com.osa.mailClient.entity.Tag;
+import com.osa.mailClient.entity.User;
 import com.osa.mailClient.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -45,6 +46,11 @@ public class TagService implements TagServiceInterface {
     @Override
     public void Delete(Tag tag) {
         tagRepository.delete(tag);
+    }
+
+    @Override
+    public List<Tag> findByuserTags(User userTags) {
+        return tagRepository.findByuserTags(userTags);
     }
 
     @Override

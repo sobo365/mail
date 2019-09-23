@@ -15,6 +15,8 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     List<Tag> findByMessages(Message messages);
 
+    List<Tag> findByuserTags(User userTags);
+
     @Query(value = "delete from tags_messages where tags_id = ?1 and messages_message_id = ?2 ",  nativeQuery = true)
     void deleteMessageTag(long tagId, long messageId);
 }

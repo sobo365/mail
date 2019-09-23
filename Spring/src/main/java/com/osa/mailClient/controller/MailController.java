@@ -166,7 +166,7 @@ public class MailController {
     public ResponseEntity<ResponseMessageDTO> newMailCheck(@RequestParam("id") int id){
         Account acc = accountService.findById(1);
 
-        mailReceiver.checkMail("pop.gmail.com", "pop3", acc.getUsername(), acc.getPassword(), acc);
+        mailReceiver.checkMail("pop.gmail.com", "pop3", "testpmsu@gmail.com", "TestPMSU1", acc);
 
 
         List<Message> messages = messageService.findByAccountId(id);

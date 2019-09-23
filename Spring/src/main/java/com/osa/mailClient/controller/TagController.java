@@ -30,9 +30,9 @@ public class TagController {
 
 
     @RequestMapping(value = "/getTags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getTags(){
-      //  User user = userService.findById(id);
-        List<Tag> tags = tagService.findAll();
+    public ResponseEntity<?> getTags(@RequestParam("id") long id){
+        User user = userService.findById(id);
+        List<Tag> tags = tagService.findByuserTags(user);
         List<TagDTO> dtos = new ArrayList<>();
         for(Tag t : tags){
             dtos.add(new TagDTO((t)));
@@ -48,7 +48,7 @@ public class TagController {
         tag.setName(tagName);
         tag.setUserTags(user);
         tagService.save(tag);
-        ResponseEntity<?> re = getTags();
+        ResponseEntity<?> re = getTags(user.getId());
         return re;
     }
 
